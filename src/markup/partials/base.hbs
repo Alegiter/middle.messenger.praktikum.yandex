@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="{{#if language}}{{language}}{{else}}en{{/if}}" dir="ltr">
+{{#block "head"}}
+    <head>
+        {{#block "meta"}}
+            {{> meta}}
+        {{/block}}
+
+        {{#block "title"}}
+            <title>{{title}}</title>
+        {{/block}}
+
+        {{#block "styles"}}
+            {{#each stylesheets}}
+                <link href="{{this}}" rel="stylesheet" />
+            {{/each}}
+        {{/block}}
+    </head>
+{{/block}}
+
+{{#block "body"}}
+    <body class="{{bodyclass}}">
+    {{#block "sider"}}
+    {{/block}}
+
+    {{#block "main"}}
+    {{/block}}
+
+    {{#block "scripts"}}
+        {{#each scripts}}
+            <script defer src="{{this}}"></script>
+        {{/each}}
+    {{/block}}
+    </body>
+{{/block}}
+</html>
