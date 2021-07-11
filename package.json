@@ -1,0 +1,30 @@
+{
+  "name": "y.praktikum.middle-frontend",
+  "version": "0.1.0",
+  "description": "Solo chat application",
+  "browserslist": [
+    "defaults"
+  ],
+  "scripts": {
+    "start": "parcel serve -p 3000 ./src/pages/login/login.hbs",
+    "build": "parcel build --no-cache --no-source-maps ./src/pages/login/login.hbs",
+    "prebuild": "rm -rf ./dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-handlebars": "^0.4.4",
+    "precss": "^4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alegiter/y.praktikum.middle-frontend.git"
+  },
+  "author": "Vladimir Sitnik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alegiter/y.praktikum.middle-frontend/issues"
+  },
+  "homepage": "https://github.com/Alegiter/y.praktikum.middle-frontend#readme"
+}
