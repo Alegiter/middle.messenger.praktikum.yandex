@@ -6,15 +6,19 @@
     "defaults"
   ],
   "scripts": {
-    "start": "parcel serve -p 3000 ./src/pages/login/login.hbs",
-    "build": "parcel build --no-cache --no-source-maps ./src/pages/login/login.hbs",
-    "prebuild": "rm -rf ./dist",
+    "start": "parcel serve --no-cache  -p 3000 ./src/index.html ./src/pages/**/*.html",
+    "prestart": "npm run clear",
+    "build": "parcel build --no-cache --no-source-maps ./src/index.html ./src/pages/**/*.html",
+    "prebuild": "npm run clear",
+    "clear": "rm -rf ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  },
   "devDependencies": {
-    "parcel-bundler": "^1.12.5",
-    "parcel-plugin-handlebars": "^0.4.4",
+    "parcel": "^2.0.0-beta.3.1",
+    "postcss-import": "^14.0.2",
     "precss": "^4.0.0"
   },
   "repository": {
