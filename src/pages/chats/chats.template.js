@@ -3,7 +3,9 @@ export function template(Handlebars, context) {
             <div class="chats">
                 <div class="chat-list-wrapper">
                     <div class="header header_top-stick">
-                        {{> avatar avatar}}
+                        <a href="../profile/profile.html">
+                            {{> avatar avatar}}            
+                        </a>
                         <div class="chat-list-wrapper__search-input">
                             <input class="input"/>
                         </div>
