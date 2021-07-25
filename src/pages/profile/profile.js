@@ -1,10 +1,10 @@
+import { Handlebars } from '../../utils/handlebars';
 import { template } from './profile.template.js';
 import { form } from '../../markup/partials/form/form.partial';
 import { formItem } from '../../markup/partials/form/form-item/form-item.partial';
 import { avatar } from '../../markup/partials/avatar/avatar';
 import { header } from '../../markup/partials/header/header.partial';
 
-const Handlebars = require('handlebars/dist/handlebars');
 
 Handlebars.registerPartial('formItem', formItem);
 Handlebars.registerPartial('form', form);

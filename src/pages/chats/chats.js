@@ -1,4 +1,4 @@
-const Handlebars = require('handlebars/dist/handlebars');
+import { Handlebars } from '../../utils/handlebars';
 import { avatar } from '../../markup/partials/avatar/avatar';
 import { chat } from '../../markup/partials/chat/chat';
 import { template } from './chats.template';

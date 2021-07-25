@@ -1,4 +1,4 @@
-const Handlebars = require('handlebars/dist/handlebars');
+import { Handlebars } from '../../utils/handlebars';
 import { ifEquals } from '../../markup/helpers/if-equals.helper';
 import { error } from '../../markup/partials/error/error.partial';
 import { template } from './404.template.js';
