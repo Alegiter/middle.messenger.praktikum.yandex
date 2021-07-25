@@ -1,6 +1,9 @@
 export function template(Handlebars, context) {
     const template = Handlebars.compile(`
             <div>
+                {{#> header}}
+                    {{header.title}}
+                {{/header}}
                 {{> form formItems}}
                 <div>
                     <a href="{{signIn.href}}" class="button">

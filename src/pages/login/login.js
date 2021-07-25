@@ -2,15 +2,20 @@ import {Handlebars} from '../../utils/handlebars';
 import { template } from './login.template';
 import { form } from '../../markup/partials/form/form.partial';
 import { formItem } from '../../markup/partials/form/form-item/form-item.partial';
+import { header } from '../../markup/partials/header/header.partial';
 
 Handlebars.registerPartial('formItem', formItem)
 Handlebars.registerPartial('form', form)
+Handlebars.registerPartial('header', header)
 
 function render(element, context) {
     element.innerHTML = template(Handlebars, context);
 }
 
 const context = {
+    header: {
+        title: 'Авторизация'
+    },
     formItems: [
         ['Логин', ''],
         ['Пароль', ''],

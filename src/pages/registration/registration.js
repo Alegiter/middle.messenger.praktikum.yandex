@@ -2,9 +2,11 @@ import { template } from './registration.template';
 import { Handlebars } from '../../utils/handlebars';
 import { form } from '../../markup/partials/form/form.partial';
 import { formItem } from '../../markup/partials/form/form-item/form-item.partial';
+import { header } from '../../markup/partials/header/header.partial';
 
 Handlebars.registerPartial('formItem', formItem)
 Handlebars.registerPartial('form', form)
+Handlebars.registerPartial('header', header)
 
 
 function render(element, context) {
@@ -12,6 +14,9 @@ function render(element, context) {
 }
 
 const context = {
+    header: {
+        title: 'Регистрация'
+    },
     formItems: [
         ['Почта', ''],
         ['Логин', ''],
