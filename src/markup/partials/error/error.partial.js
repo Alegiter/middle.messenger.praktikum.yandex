@@ -14,4 +14,4 @@ export const error = `
     <div>
         <a href="{{error.backHref}}">Back to chats</a>
     </div>
-`
+`;

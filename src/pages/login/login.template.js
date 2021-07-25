@@ -1,5 +1,5 @@
 export function template(context) {
-    const Handlebars = require('handlebars/dist/handlebars')
+    const Handlebars = require('handlebars/dist/handlebars');
     const template = Handlebars.compile(`
             <div class="form login-form">
                 <div class="form__item">
@@ -29,21 +29,21 @@ export function template(context) {
                     </a>
                 </div>
             </div>
-    `)
+    `);
     return template(context || {
         login: {
-            title: "Login"
+            title: 'Login'
         },
         password: {
-            title: "Password"
+            title: 'Password'
         },
         signIn: {
-            title: "Sign in",
-            href: "../chats/chats.html"
+            title: 'Sign in',
+            href: '../chats/chats.html'
         },
         needAccount: {
-            title: "Create account",
-            href: "../registration/registration.html"
+            title: 'Create account',
+            href: '../registration/registration.html'
         }
-    })
+    });
 }

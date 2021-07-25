@@ -20,33 +20,33 @@ export function template(Handlebars, context) {
                     <div class="header header_top-stick"></div>
                 </div>
             </div>
-    `)
+    `);
     return template(context || {
         avatar: {
-            initials: "ВС"
+            initials: 'ВС'
         },
         chats: [
             {
                 avatar: {
-                    initials: "ИИ"
+                    initials: 'ИИ'
                 },
-                name: "Иван Иванов",
+                name: 'Иван Иванов',
                 lastMessage: {
-                    text: "Привет, как дела?",
-                    time: "14:33"
+                    text: 'Привет, как дела?',
+                    time: '14:33'
                 }
             },
             {
                 avatar: {
-                    initials: "ПП"
+                    initials: 'ПП'
                 },
-                name: "Петя Петров",
+                name: 'Петя Петров',
                 lastMessage: {
-                    text: "Ответь уже!!!",
-                    time: "Mon"
+                    text: 'Ответь уже!!!',
+                    time: 'Mon'
                 },
                 unreadMessages: 10
             }
         ]
-    })
+    });
 }

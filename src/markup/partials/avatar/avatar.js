@@ -8,4 +8,4 @@ export const avatar = `
             </div>
         {{/if}}
     </div>
-`
+`;

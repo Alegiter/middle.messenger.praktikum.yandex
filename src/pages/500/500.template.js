@@ -3,11 +3,11 @@ export function template(Handlebars, context) {
         <div class="full-page">
             {{> error this}}
         </div>
-    `)
+    `);
     return template(context || {
         error: {
             code: '404',
-            backHref: "../chats/chats.html"
+            backHref: '../chats/chats.html'
         }
-    })
+    });
 }

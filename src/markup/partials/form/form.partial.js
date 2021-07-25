@@ -4,4 +4,4 @@ export const form = `
             {{> formItem this}}
         {{/each}}
     </div>
-`
+`;

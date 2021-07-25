@@ -1,5 +1,5 @@
 export function template(context) {
-    const Handlebars = require('handlebars/dist/handlebars')
+    const Handlebars = require('handlebars/dist/handlebars');
     const template = Handlebars.compile(`
             <div class="form">
                 <div class="form__item">
@@ -78,43 +78,43 @@ export function template(context) {
                     </a>
                 </div>
             </div>
-    `)
+    `);
     return template(context || {
         mail: {
-            title: "Mail",
+            title: 'Mail',
             // todo [sitnik] Вставить паттерн почты
-            pattern: "",
-            validation: "Mail format incorrect"
+            pattern: '',
+            validation: 'Mail format incorrect'
         },
         login: {
-            title: "Login"
+            title: 'Login'
         },
         name: {
-            title: "Name"
+            title: 'Name'
         },
         surname: {
-            title: "Surname"
+            title: 'Surname'
         },
         mobile: {
-            title: "Mobile",
+            title: 'Mobile',
             // todo [sitnik] Вставить паттерн телефона
-            pattern: ""
+            pattern: ''
         },
         password: {
-            title: "Password",
+            title: 'Password',
             // todo [sitnik] Написать валидацию для пароля
-            validation: ""
+            validation: ''
         },
         passwordAgain: {
-            title: "Password (again)",
-            validation: "Password mismatch"
+            title: 'Password (again)',
+            validation: 'Password mismatch'
         },
         signUp: {
-            title: "Sign up"
+            title: 'Sign up'
         },
         hasAccount: {
-            title: "I have account",
-            href: "../login/login.html"
+            title: 'I have account',
+            href: '../login/login.html'
         }
-    })
+    });
 }

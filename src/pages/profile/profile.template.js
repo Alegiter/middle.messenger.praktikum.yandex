@@ -2,11 +2,9 @@ export function template(Handlebars, context) {
     const template = Handlebars.compile(`
         <div class="full-page">
             <div class="profile">
-                <header class="header header_top-stick">
-                    <a href="{{backHref}}">Назад</a>
-                    <span style="flex: 1 1 0%">Профиль</span>
-                    <a href="../login/login.html">Выйти</a>
-                </header>
+                {{#> header header}}
+                    Профиль
+                {{/header}}
                 <div class="profile__image">
                     <div class="image">
                         {{> avatar avatar}}
@@ -32,5 +30,5 @@ export function template(Handlebars, context) {
         </div>
     `);
 
-    return template(context)
+    return template(context);
 }

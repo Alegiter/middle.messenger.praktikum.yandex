@@ -1,7 +1,7 @@
-import {template} from './login.template'
+import { template } from './login.template';
 
 function render(element) {
-    element.innerHTML = template()
+    element.innerHTML = template();
 }
 
-render(document.body)
+render(document.body);

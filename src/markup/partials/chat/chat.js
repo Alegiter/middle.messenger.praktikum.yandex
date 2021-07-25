@@ -20,4 +20,4 @@ export const chat = `
             </div>
         </div>
     </div>
-`
+`;
