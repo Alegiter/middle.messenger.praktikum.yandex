@@ -1,0 +1,24 @@
+.error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &-code {
+        font-size: 100px;
+    }
+
+    &-description {
+        height: 100px;
+        display: inherit;
+        align-items: inherit;
+        flex-direction: inherit;
+    }
+
+    &-text {
+        font-size: 24px;
+        &-description {
+            font-size: var(--font-size-text);
+        }
+    }
+}
