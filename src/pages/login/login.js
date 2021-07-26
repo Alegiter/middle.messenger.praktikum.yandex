@@ -14,7 +14,10 @@ function render(element, context) {
 
 const context = {
     header: {
-        title: 'Авторизация'
+        title: {
+            centered: true,
+            value: 'Авторизация'
+        }
     },
     formItems: [
         ['Логин', ''],
@@ -34,4 +37,6 @@ const context = {
     }
 }
 
-render(document.body, context);
+const element = document.body.children[0]
+
+render(element, context);

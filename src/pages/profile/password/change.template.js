@@ -1,15 +1,17 @@
 export function template(Handlebars, context) {
     const template = Handlebars.compile(`
-        <div class="full-page">
+        <div class="card">
             <div class="profile">
                 {{#> header header}}
-                    Смена пароля
+                    {{title.value}}
                 {{/header}}
                 {{> form profileItems}}
                 <div class="profile__footer">
-                    <div>
-                        <a href="../profile.html">Сменить</a>
-                    </div>     
+                    <div class="profile__footer-item">
+                        <button class="button">
+                            <a class="linkless" href="../profile.html">Сменить</a>
+                        </button>     
+                    </div>
                 </div>      
             </div>
         </div>

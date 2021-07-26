@@ -45,4 +45,6 @@ const context = {
     ))
 };
 
-render(document.body, context);
+const element = document.body.children[0]
+
+render(element, context);

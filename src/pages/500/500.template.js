@@ -1,12 +1,8 @@
 export function template(Handlebars, context) {
-    const template = Handlebars.compile(`
-        <div class="full-page">
-            {{> error this}}
-        </div>
-    `);
+    const template = Handlebars.compile(`{{> error this}}`);
     return template(context || {
         error: {
-            code: '404',
+            code: '505',
             backHref: '../chats/chats.html'
         }
     });

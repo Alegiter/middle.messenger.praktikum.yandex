@@ -15,7 +15,10 @@ function render(element, context) {
 
 const context = {
     header: {
-        title: 'Регистрация'
+        title: {
+            centered: true,
+            value: 'Регистрация'
+        }
     },
     formItems: [
         ['Почта', ''],
@@ -42,4 +45,6 @@ const context = {
     }
 }
 
-render(document.body, context);
+const element = document.body.children[0]
+
+render(element, context);

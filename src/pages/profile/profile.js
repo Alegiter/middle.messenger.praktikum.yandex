@@ -23,6 +23,10 @@ const context = {
         back: {
             href:'../chats/chats.html'
         },
+        title: {
+            centered: true,
+            value: 'Профиль'
+        },
         exit: {
             href: '../login/login.html'
         }
@@ -49,4 +53,7 @@ const context = {
     ))
 };
 
-render(document.body, context);
+const element = document.body.children[0]
+
+render(element, context);
+

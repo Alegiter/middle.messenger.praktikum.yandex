@@ -18,6 +18,10 @@ const context = {
         stick: {
             top: true
         },
+        title: {
+            centered: true,
+            value: 'Смена пароля'
+        },
         back: {
             href:'../profile.html'
         }
@@ -33,4 +37,7 @@ const context = {
     ))
 };
 
-render(document.body, context);
+const element = document.body.children[0]
+
+render(element, context);
+

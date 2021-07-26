@@ -1,9 +1,9 @@
 export function template(Handlebars, context) {
     const template = Handlebars.compile(`
-        <div class="full-page">
+        <div class="card">
             <div class="profile">
                 {{#> header header}}
-                    Профиль
+                    {{title.value}}
                 {{/header}}
                 <div class="profile__image">
                     <div class="image">
@@ -16,15 +16,16 @@ export function template(Handlebars, context) {
                 </div>
                 {{> form profileItems}}
                 <div class="profile__footer">
-                    <div>
-                        <a href="edit/edit.html">Изменить данные</a>
-                    </div>     
-                    <div>     
-                        <a href="password/change.html">Изменить пароль</a>
+                    <div class="profile__footer-item">
+                        <button class="button">
+                            <a class="linkless" href="edit/edit.html">Изменить данные</a>
+                        </button>     
                     </div>
-                    <div>   
-                        <a href="../login/login.html">Выйти</a>
-                    </div>       
+                    <div class="profile__footer-item">
+                        <button class="button">     
+                            <a class="linkless" href="password/change.html">Изменить пароль</a>
+                        </button>     
+                    </div>
                 </div>
             </div>
         </div>

@@ -10,11 +10,6 @@ function render(element, context) {
     element.innerHTML = template(Handlebars, context);
 }
 
-const context = {
-    error: {
-        code: '404',
-        backHref: '../chats/chats.html'
-    }
-};
+const element = document.body.children[0]
 
-render(document.body, context);
+render(element);

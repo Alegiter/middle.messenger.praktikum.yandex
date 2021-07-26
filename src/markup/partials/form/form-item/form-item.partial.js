@@ -1,10 +1,10 @@
 export const formItem = `
     <div class="form__item">
         <div class="form__item-title">
-            {{title}}:
+            {{title}}
         </div>
-        <div class="form__item-input">
-            <input class="input" 
+        <div class="form__item-input-wrapper">
+            <input class="form__item-input" 
                 {{#if input.disabled}} disabled {{/if}} 
                 value="{{input.value}}"
                 />

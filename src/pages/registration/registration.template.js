@@ -1,17 +1,17 @@
 export function template(Handlebars, context) {
     const template = Handlebars.compile(`
-            <div>
-                {{#> header}}
-                    {{header.title}}
+            <div class="card">
+                {{#> header header}}
+                    {{title.value}}
                 {{/header}}
                 {{> form formItems}}
-                <div>
-                    <a href="../chats/chats.html">
+                <button class="button">
+                    <a class="linkless" href="../chats/chats.html">
                         {{signUp.title}}
                     </a>
-                </div>
-                <div>
-                    <a href="{{hasAccount.href}}">
+                </button>
+                <div class="card__footer">
+                    <a class="link link_small" href="{{hasAccount.href}}">
                         {{hasAccount.title}}
                     </a>
                 </div>
