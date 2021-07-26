@@ -1,13 +1,7 @@
 import { Handlebars } from '../../../utils/handlebars';
 import { template } from './change.template.js';
-import { form } from '../../../markup/partials/form/form.partial';
-import { formItem } from '../../../markup/partials/form/form-item/form-item.partial';
-import { header } from '../../../markup/partials/header/header.partial';
-
-Handlebars.registerPartial('formItem', formItem);
-Handlebars.registerPartial('form', form);
-Handlebars.registerPartial('header', header);
-
+import '../../../markup/partials/form/form.partial';
+import '../../../markup/partials/header/header.partial';
 
 function render(element, context) {
     element.innerHTML = template(Handlebars, context);

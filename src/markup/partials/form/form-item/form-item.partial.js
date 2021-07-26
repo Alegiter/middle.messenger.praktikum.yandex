@@ -1,4 +1,6 @@
-export const formItem = `
+import { Handlebars } from '../../../../utils/handlebars';
+
+const formItem = `
     <div class="form__item">
         <div class="form__item-title">
             {{title}}
@@ -11,3 +13,5 @@ export const formItem = `
         </div>
     </div>
 `;
+
+Handlebars.registerPartial('formItem', formItem);

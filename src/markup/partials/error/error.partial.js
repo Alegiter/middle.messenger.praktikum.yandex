@@ -1,4 +1,6 @@
-export const error = `
+import { Handlebars } from '../../../utils/handlebars';
+
+const error = `
     <div class="error">
         <div class="error-code">
             {{error.code}}
@@ -17,3 +19,5 @@ export const error = `
         </div>
     </div>
 `;
+
+Handlebars.registerPartial('error', error);

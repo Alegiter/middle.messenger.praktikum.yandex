@@ -1,10 +1,7 @@
 import { Handlebars } from '../../utils/handlebars';
-import { avatar } from '../../markup/partials/avatar/avatar';
-import { chat } from '../../markup/partials/chat/chat';
+import '../../markup/partials/avatar/avatar.partial';
+import '../../markup/partials/chat/chat.partial';
 import { template } from './chats.template';
-
-Handlebars.registerPartial('avatar', avatar);
-Handlebars.registerPartial('chat', chat);
 
 function render(element) {
     element.innerHTML = template(Handlebars);

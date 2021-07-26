@@ -1,4 +1,6 @@
-export const chat = `
+import { Handlebars } from '../../../utils/handlebars';
+
+const chat = `
     <div class="chat">
         <div class="chat__icon">
             {{> avatar avatar}}
@@ -21,3 +23,5 @@ export const chat = `
         </div>
     </div>
 `;
+
+Handlebars.registerPartial('chat', chat);

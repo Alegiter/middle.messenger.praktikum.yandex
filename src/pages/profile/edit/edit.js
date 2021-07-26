@@ -1,16 +1,9 @@
 import { Handlebars } from '../../../utils/handlebars';
 import { template } from './edit.template.js';
-import { form } from '../../../markup/partials/form/form.partial';
-import { formItem } from '../../../markup/partials/form/form-item/form-item.partial';
-import { avatar } from '../../../markup/partials/avatar/avatar';
-import { header } from '../../../markup/partials/header/header.partial';
-import { profileImage } from '../markup/partials/profile-image/profile-image.partial';
-
-Handlebars.registerPartial('formItem', formItem);
-Handlebars.registerPartial('form', form);
-Handlebars.registerPartial('avatar', avatar);
-Handlebars.registerPartial('header', header);
-Handlebars.registerPartial('profileImage', profileImage);
+import '../../../markup/partials/form/form.partial';
+import '../../../markup/partials/avatar/avatar.partial';
+import '../../../markup/partials/header/header.partial';
+import '../markup/partials/profile-image/profile-image.partial';
 
 function render(element, context) {
     element.innerHTML = template(Handlebars, context);

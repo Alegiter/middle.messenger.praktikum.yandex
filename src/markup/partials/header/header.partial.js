@@ -1,4 +1,6 @@
-export const header = `
+import { Handlebars } from '../../../utils/handlebars';
+
+const header = `
     <header class="header {{#if stick.top}} header_top-stick {{/if}}">
         {{#if back}}
             <div>
@@ -19,3 +21,5 @@ export const header = `
         {{/if}}
     </header>
 `;
+
+Handlebars.registerPartial('header', header);

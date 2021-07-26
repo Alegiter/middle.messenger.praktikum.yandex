@@ -1,4 +1,6 @@
-export const profileImage = `
+import { Handlebars } from '../../../../../utils/handlebars';
+
+const profileImage = `
     <div class="profile-image">
         {{> avatar avatar}}
         <input class="hidden" type="file" accept="image/png, image/jpeg">
@@ -7,3 +9,5 @@ export const profileImage = `
         </div>
     </div>
 `
+
+Handlebars.registerPartial('profileImage', profileImage);

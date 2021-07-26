@@ -1,4 +1,6 @@
-export const avatar = `
+import { Handlebars } from '../../../utils/handlebars';
+
+const avatar = `
     <div class="avatar {{#if big}} avatar_big {{/if}}">
         {{#if img.href}}
             <img src="{{img.href}}" alt="">
@@ -9,3 +11,5 @@ export const avatar = `
         {{/if}}
     </div>
 `;
+
+Handlebars.registerPartial('avatar', avatar);
