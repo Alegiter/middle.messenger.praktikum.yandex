@@ -28,3 +28,7 @@ npm start
 ## PR's
 
 PR's are accepted to `main` branch only
+
+## Netlify
+
+https://elated-davinci-b5b9aa.netlify.app/
