@@ -1,32 +1,28 @@
-export function template(Handlebars, context) {
-    const template = Handlebars.compile(`
-        <div class="card">
-            <div class="profile">
-                {{#> header header}}
-                    {{title.value}}
-                {{/header}}
-                <div class="profile__image">
-                    {{> profileImage profileImage}}
-                    <div class="profile__name">   
-                        {{fullName}}                  
-                    </div>
+export default `
+    <div class="card">
+        <div class="profile">
+            {{#> header header}}
+                {{title.value}}
+            {{/header}}
+            <div class="profile__image">
+                {{> profileImage profileImage}}
+                <div class="profile__name">   
+                    {{fullName}}                  
                 </div>
-                {{> form profileItems}}
-                <div class="profile__footer">
-                    <div class="profile__footer-item">
-                        <button class="button">
-                            <a class="linkless" href="../../static/profile/edit.html">Изменить данные</a>
-                        </button>     
-                    </div>
-                    <div class="profile__footer-item">
-                        <button class="button">     
-                            <a class="linkless" href="../../static/profile/password/change.html">Изменить пароль</a>
-                        </button>     
-                    </div>
+            </div>
+            {{> form profileItems}}
+            <div class="profile__footer">
+                <div class="profile__footer-item">
+                    <button class="button">
+                        <a class="linkless" href="../../static/profile/edit.html">Изменить данные</a>
+                    </button>     
+                </div>
+                <div class="profile__footer-item">
+                    <button class="button">     
+                        <a class="linkless" href="../../static/profile/password/change.html">Изменить пароль</a>
+                    </button>     
                 </div>
             </div>
         </div>
-    `);
-
-    return template(context);
-}
+    </div>
+`

@@ -1,13 +1,9 @@
-import { Handlebars } from '../../../utils/handlebars';
-import { template } from './edit.template.js';
+import template from './edit.template.js';
 import '../../../markup/partials/form/form.partial';
 import '../../../markup/partials/avatar/avatar.partial';
 import '../../../markup/partials/header/header.partial';
 import '../markup/partials/profile-image/profile-image.partial';
-
-function render(element, context) {
-    element.innerHTML = template(Handlebars, context);
-}
+import { renderer } from '../../../utils/renderer';
 
 const context = {
     header: {
@@ -43,6 +39,4 @@ const context = {
     ))
 };
 
-const element = document.body.children[0]
-
-render(element, context);
+renderer(template, context)

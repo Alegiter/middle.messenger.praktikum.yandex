@@ -1,11 +1,7 @@
-import { Handlebars } from '../../../utils/handlebars';
-import { template } from './change.template.js';
+import template from './change.template.js';
 import '../../../markup/partials/form/form.partial';
 import '../../../markup/partials/header/header.partial';
-
-function render(element, context) {
-    element.innerHTML = template(Handlebars, context);
-}
+import { renderer } from '../../../utils/renderer';
 
 const context = {
     header: {
@@ -17,7 +13,7 @@ const context = {
             value: 'Смена пароля'
         },
         back: {
-            href:'../profile.html'
+            href: '../profile.html'
         }
     },
     profileItems: [
@@ -31,7 +27,5 @@ const context = {
     ))
 };
 
-const element = document.body.children[0]
-
-render(element, context);
+renderer(template, context);
 
