@@ -4,8 +4,20 @@
 @import '../../markup/partials/header/header.partial.pcss';
 @import '../../markup/partials/avatar/avatar.pcss';
 @import '../../markup/partials/form/form.partial.pcss';
+@import 'markup/partials/profile-image/profile-image.partial.pcss';
 
 .profile {
+    &__image {
+        @extend .flex;
+        @extend .flex_centered;
+        flex-direction: column;
+        margin-bottom: 24px;
+    }
+
+    &__name {
+        @extend .title;
+    }
+
     &__footer {
         margin-top: 10px;
         margin-bottom: -10px;

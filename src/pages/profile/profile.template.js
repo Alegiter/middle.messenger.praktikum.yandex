@@ -6,10 +6,7 @@ export function template(Handlebars, context) {
                     {{title.value}}
                 {{/header}}
                 <div class="profile__image">
-                    <div class="image">
-                        {{> avatar avatar}}
-                        <!--todo [sitnik] добавить элемент смены аватара -->      
-                    </div>
+                    {{> profileImage profileImage}}
                     <div class="profile__name">   
                         {{fullName}}                  
                     </div>

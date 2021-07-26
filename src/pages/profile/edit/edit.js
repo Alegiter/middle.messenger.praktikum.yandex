@@ -4,11 +4,13 @@ import { form } from '../../../markup/partials/form/form.partial';
 import { formItem } from '../../../markup/partials/form/form-item/form-item.partial';
 import { avatar } from '../../../markup/partials/avatar/avatar';
 import { header } from '../../../markup/partials/header/header.partial';
+import { profileImage } from '../markup/partials/profile-image/profile-image.partial';
 
 Handlebars.registerPartial('formItem', formItem);
 Handlebars.registerPartial('form', form);
 Handlebars.registerPartial('avatar', avatar);
 Handlebars.registerPartial('header', header);
+Handlebars.registerPartial('profileImage', profileImage);
 
 function render(element, context) {
     element.innerHTML = template(Handlebars, context);
@@ -23,8 +25,11 @@ const context = {
             href:'../profile.html'
         }
     },
-    avatar: {
-        initials: 'ВС'
+    profileImage: {
+        avatar: {
+            initials: 'ВС',
+            big: true
+        }
     },
     fullName: 'Владимир Ситник',
     profileItems: [
