@@ -6,9 +6,9 @@
     "defaults"
   ],
   "scripts": {
-    "start": "parcel serve --no-cache  -p 3000 src/index.html ./src/pages/**/*/*.html",
+    "start": "parcel serve --no-cache  -p 3000 src/static/*.html --dist-dir dist",
     "prestart": "npm run clear",
-    "build": "parcel build --no-cache --no-source-maps src/index.html ./src/pages/**/*/*.html",
+    "build": "parcel build --no-cache --no-source-maps src/static/*.html --dist-dir dist",
     "prebuild": "npm run clear",
     "clear": "rm -rf ./dist",
     "test": "echo \"Error: no test specified\" && exit 1"

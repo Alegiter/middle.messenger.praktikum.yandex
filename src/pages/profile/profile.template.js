@@ -15,12 +15,12 @@ export function template(Handlebars, context) {
                 <div class="profile__footer">
                     <div class="profile__footer-item">
                         <button class="button">
-                            <a class="linkless" href="edit/edit.html">Изменить данные</a>
+                            <a class="linkless" href="../../static/profile/edit.html">Изменить данные</a>
                         </button>     
                     </div>
                     <div class="profile__footer-item">
                         <button class="button">     
-                            <a class="linkless" href="password/change.html">Изменить пароль</a>
+                            <a class="linkless" href="../../static/profile/password/change.html">Изменить пароль</a>
                         </button>     
                     </div>
                 </div>

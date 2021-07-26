@@ -6,7 +6,7 @@ export function template(Handlebars, context) {
                 {{/header}}
                 {{> form formItems}}
                 <button class="button">
-                    <a class="linkless" href="../chats/chats.html">
+                    <a class="linkless" href="../../static/chats.html">
                         {{signUp.title}}
                     </a>
                 </button>

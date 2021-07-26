@@ -1,12 +1,12 @@
-import {Handlebars} from '../../utils/handlebars';
+import { Handlebars } from '../../utils/handlebars';
 import { template } from './login.template';
 import { form } from '../../markup/partials/form/form.partial';
 import { formItem } from '../../markup/partials/form/form-item/form-item.partial';
 import { header } from '../../markup/partials/header/header.partial';
 
-Handlebars.registerPartial('formItem', formItem)
-Handlebars.registerPartial('form', form)
-Handlebars.registerPartial('header', header)
+Handlebars.registerPartial('formItem', formItem);
+Handlebars.registerPartial('form', form);
+Handlebars.registerPartial('header', header);
 
 function render(element, context) {
     element.innerHTML = template(Handlebars, context);
@@ -21,7 +21,7 @@ const context = {
     },
     formItems: [
         ['Логин', ''],
-        ['Пароль', ''],
+        ['Пароль', '']
     ].map(entry => (
         {
             title: entry[0]
@@ -35,8 +35,8 @@ const context = {
         title: 'Создать аккаунт',
         href: '../registration/registration.html'
     }
-}
+};
 
-const element = document.body.children[0]
+const element = document.body.children[0];
 
 render(element, context);

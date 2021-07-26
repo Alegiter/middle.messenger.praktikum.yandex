@@ -9,7 +9,7 @@ export function template(Handlebars, context) {
                 <div class="profile__footer">
                     <div class="profile__footer-item">
                         <button class="button">
-                            <a class="linkless" href="../profile.html">Сменить</a>
+                            <a class="linkless" href="../../../static/profile.html">Сменить</a>
                         </button>     
                     </div>
                 </div>      
