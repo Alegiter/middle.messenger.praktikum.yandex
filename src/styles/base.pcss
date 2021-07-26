@@ -1,0 +1,33 @@
+@import 'typography.pcss';
+@import 'material-icons.pcss';
+@import 'variables.pcss';
+
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+main {
+    @extend .flex;
+    @extend .flex_centered;
+    height: inherit;
+}
+
+.hidden {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex_centered {
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    font-weight: bold;
+    font-size: var(--font-size-title);
+}
