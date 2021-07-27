@@ -1,4 +1,4 @@
-import { Handlebars } from '../../../utils/handlebars';
+import { Handlebars } from '../../../core/utils/handlebars';
 
 const header = `
     <header class="header {{#if stick.top}} header_top-stick {{/if}}">

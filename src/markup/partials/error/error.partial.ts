@@ -1,12 +1,12 @@
-import { Handlebars } from '../../../utils/handlebars';
+import { Handlebars } from '../../../core/utils/handlebars';
 
 const error = `
     <div class="error">
         <div class="error-code">
-            {{error.code}}
+            {{code}}
         </div>
         <div class="error-description">
-            {{#ifEquals error.code '404'}}
+            {{#ifEquals code '404'}}
                 <div class="error-text">Упс!</div>
                 <div class="error-text-description">Страница не найдена</div>
             {{else}}
@@ -15,7 +15,7 @@ const error = `
             {{/ifEquals}}
         </div>
         <div>
-            <a class="link link_small" href="{{error.backHref}}">Вернуться к чатам</a>
+            <a class="link link_small" href="{{backHref}}">Вернуться к чатам</a>
         </div>
     </div>
 `;

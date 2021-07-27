@@ -3,7 +3,7 @@ export default `
             {{#> header header}}
                 {{title.value}}
             {{/header}}
-            {{> form formItems}}
+            {{> form form}}
             <button class="button">
                 <a class="linkless" href="{{signIn.href}}">
                     {{signIn.title}}

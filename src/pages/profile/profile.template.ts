@@ -10,7 +10,7 @@ export default `
                     {{fullName}}                  
                 </div>
             </div>
-            {{> form profileItems}}
+            {{> form form}}
             <div class="profile__footer">
                 <div class="profile__footer-item">
                     <button class="button">

@@ -4,14 +4,17 @@ export default `
             {{#> header header}}
                 {{title.value}}
             {{/header}}
-            {{> form profileItems}}
+            <div class="profile__image">
+                {{> profileImage profileImage}}
+            </div>
+            {{> form form}}
             <div class="profile__footer">
                 <div class="profile__footer-item">
                     <button class="button">
-                        <a class="linkless" href="../../../static/profile.html">Сменить</a>
+                        <a class="linkless" href="../../../static/profile.html">Сохранить</a>
                     </button>     
                 </div>
-            </div>      
+            </div>
         </div>
     </div>
-`;
+`

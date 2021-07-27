@@ -1,4 +1,4 @@
-import { Handlebars } from '../../../../utils/handlebars';
+import { Handlebars } from '../../../../core/utils/handlebars';
 
 const formItem = `
     <div class="form__item">

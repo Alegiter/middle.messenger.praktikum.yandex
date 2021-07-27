@@ -1,7 +1,7 @@
 import '../../markup/partials/avatar/avatar.partial';
 import '../../markup/partials/chat/chat.partial';
 import template from './chats.template';
-import { renderer } from '../../utils/renderer';
+import { renderer } from '../../core/utils/renderer';
 
 const context = {
     avatar: {

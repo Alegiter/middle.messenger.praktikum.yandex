@@ -2,19 +2,16 @@ export default `
     <div class="card">
         <div class="profile">
             {{#> header header}}
-                Редактирование профиля
+                {{title.value}}
             {{/header}}
-            <div class="profile__image">
-                {{> profileImage profileImage}}
-            </div>
-            {{> form profileItems}}
+            {{> form form}}
             <div class="profile__footer">
                 <div class="profile__footer-item">
                     <button class="button">
-                        <a class="linkless" href="../../../static/profile.html">Сохранить</a>
+                        <a class="linkless" href="../../../static/profile.html">Сменить</a>
                     </button>     
                 </div>
-            </div>
+            </div>      
         </div>
     </div>
-`
+`;
