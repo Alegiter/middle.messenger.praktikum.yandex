@@ -1,7 +1,7 @@
 import template from './registration.template';
 import '../../markup/partials/form/form.partial';
 import '../../markup/partials/header/header.partial';
-import { renderer } from '../../core/utils/renderer';
+import renderer from '../../core/utils/renderer';
 import { RegistrationTemplate } from './registration.template.type';
 
 const context: RegistrationTemplate = {
@@ -19,15 +19,13 @@ const context: RegistrationTemplate = {
             ['Фамилия', ''],
             ['Имя в чате', ''],
             ['Телефон', '+7']
-        ].map(entry => (
-            {
-                title: entry[0],
-                input: {
-                    disabled: false,
-                    value: entry[1]
-                }
+        ].map((entry) => ({
+            title: entry[0],
+            input: {
+                disabled: false,
+                value: entry[1]
             }
-        ))
+        }))
     },
     signUp: {
         title: 'Зарегистрироваться',

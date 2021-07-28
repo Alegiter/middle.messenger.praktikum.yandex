@@ -8,6 +8,6 @@ const profileImage = `
             <i class="material-icons">add_a_photo</i>  
         </div>
     </div>
-`
+`;
 
 Handlebars.registerPartial('profileImage', profileImage);

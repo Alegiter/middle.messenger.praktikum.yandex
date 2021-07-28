@@ -19,4 +19,4 @@ export default `
                 <div class="header header_top-stick"></div>
             </div>
         </div>
-`
+`;

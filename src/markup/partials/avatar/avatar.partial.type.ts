@@ -1,7 +1,7 @@
 export type AvatarPartial = {
-  big?: boolean;
-  img?: {
-    href: string
-  },
-  initials: string
-}
+    big?: boolean;
+    img?: {
+        href: string;
+    };
+    initials: string;
+};

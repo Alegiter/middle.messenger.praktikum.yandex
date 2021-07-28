@@ -1,1 +1,1 @@
-export default `{{> error this}}`
+export default `{{> error this}}`;

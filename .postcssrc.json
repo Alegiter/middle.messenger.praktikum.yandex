@@ -1,6 +1,8 @@
 {
     "plugins": {
-      "postcss-import": {},
-      "precss": {}
+        "stylelint": {},
+        "postcss-import": {},
+        "precss": {},
+        "postcss-reporter": {}
     }
 }

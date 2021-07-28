@@ -1,7 +1,7 @@
 import '../../markup/partials/avatar/avatar.partial';
 import '../../markup/partials/chat/chat.partial';
 import template from './chats.template';
-import { renderer } from '../../core/utils/renderer';
+import renderer from '../../core/utils/renderer';
 
 const context = {
     avatar: {
@@ -30,6 +30,6 @@ const context = {
             unreadMessages: 10
         }
     ]
-}
+};
 
-renderer(template, context)
+renderer(template, context);

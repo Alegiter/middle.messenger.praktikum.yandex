@@ -1,4 +1,4 @@
 export type ErrorPartial = {
-  code: string;
-  backHref: string
-}
+    code: string;
+    backHref: string;
+};

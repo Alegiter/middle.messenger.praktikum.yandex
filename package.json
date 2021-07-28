@@ -1,38 +1,54 @@
 {
-  "name": "y.praktikum.middle-frontend",
-  "version": "0.1.0",
-  "description": "Solo chat application",
-  "browserslist": [
-    "defaults"
-  ],
-  "scripts": {
-    "start": "parcel serve --no-cache  -p 3000 src/static/*.html --dist-dir dist",
-    "prestart": "npm run prebuild",
-    "build": "parcel build --no-cache --no-source-maps src/static/*.html --dist-dir dist",
-    "prebuild": "npm run tsc && npm run clear",
-    "clear": "rm -rf ./dist",
-    "tsc": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "handlebars": "^4.7.7"
-  },
-  "devDependencies": {
-    "@parcel/validator-typescript": "^2.0.0-alpha.3",
-    "parcel": "^2.0.0-beta.3.1",
-    "postcss-import": "^14.0.2",
-    "precss": "^4.0.0",
-    "typescript": "^4.3.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Alegiter/y.praktikum.middle-frontend.git"
-  },
-  "author": "Vladimir Sitnik",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Alegiter/y.praktikum.middle-frontend/issues"
-  },
-  "homepage": "https://github.com/Alegiter/y.praktikum.middle-frontend#readme",
-  "engine": "12.18.1"
+    "name": "y.praktikum.middle-frontend",
+    "version": "0.1.0",
+    "description": "Solo chat application",
+    "browserslist": [
+        "defaults"
+    ],
+    "scripts": {
+        "start": "parcel serve --no-cache  -p 3000 src/static/*.html --dist-dir dist",
+        "prestart": "npm run prebuild",
+        "build": "parcel build --no-cache --no-source-maps src/static/*.html --dist-dir dist",
+        "prebuild": "npm run linting && npm run clear",
+        "clear": "rm -rf ./dist",
+        "tsc": "tsc",
+        "lint": "eslint ./src",
+        "prettier": "prettier --check ./src",
+        "stylelint": "stylelint ./src",
+        "linting": "npm run prettier && npm run lint && npm run stylelint",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "handlebars": "^4.7.7"
+    },
+    "devDependencies": {
+        "@parcel/validator-typescript": "^2.0.0-alpha.3",
+        "@typescript-eslint/eslint-plugin": "^4.28.5",
+        "@typescript-eslint/parser": "^4.28.5",
+        "eslint": "^7.31.0",
+        "eslint-config-airbnb-base": "^14.2.1",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.23.4",
+        "eslint-plugin-prettier": "^3.4.0",
+        "parcel": "^2.0.0-beta.3.1",
+        "postcss": "^8.3.6",
+        "postcss-import": "^14.0.2",
+        "postcss-reporter": "^7.0.2",
+        "precss": "^4.0.0",
+        "prettier": "2.3.2",
+        "stylelint": "^13.13.1",
+        "stylelint-config-standard": "^22.0.0",
+        "typescript": "^4.3.5"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Alegiter/y.praktikum.middle-frontend.git"
+    },
+    "author": "Vladimir Sitnik",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Alegiter/y.praktikum.middle-frontend/issues"
+    },
+    "homepage": "https://github.com/Alegiter/y.praktikum.middle-frontend#readme",
+    "engine": "12.18.1"
 }
