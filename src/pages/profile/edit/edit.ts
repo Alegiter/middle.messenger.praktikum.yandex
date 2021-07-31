@@ -44,6 +44,7 @@ class ProfileEdit extends Component<ProfileEditProperties> {
                     submit: (event) => {
                         event.preventDefault();
                         if (this.properties.form.valid) {
+                            // eslint-disable-next-line no-console
                             console.log(this.properties.form.value);
                             // Router.navigate('chats.html');
                         }
@@ -125,4 +126,4 @@ class ProfileEdit extends Component<ProfileEditProperties> {
     }
 }
 
-renderer2(new ProfileEdit());
+renderer2(new ProfileEdit().element);

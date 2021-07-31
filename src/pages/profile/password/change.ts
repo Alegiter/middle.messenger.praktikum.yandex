@@ -33,6 +33,7 @@ class ProfilePasswordChange extends Component<ProfilePasswordChangeProperties> {
                     submit: (event) => {
                         event.preventDefault();
                         if (this.properties.form.valid) {
+                            // eslint-disable-next-line no-console
                             console.log(this.properties.form.value);
                             // Router.navigate('chats.html');
                         }
@@ -87,4 +88,4 @@ class ProfilePasswordChange extends Component<ProfilePasswordChangeProperties> {
     }
 }
 
-renderer2(new ProfilePasswordChange());
+renderer2(new ProfilePasswordChange().element);

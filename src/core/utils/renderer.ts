@@ -1,6 +1,5 @@
 import { appElementId } from './constants';
 import { Handlebars } from './handlebars';
-import Component from '../components/component';
 
 // todo [sitnik] заменить element на query (строку)
 export default function renderer(
@@ -15,11 +14,7 @@ export default function renderer(
     }
 }
 
-export function renderer2(
-    component: Component<any>,
-    // context: Record<string, unknown>,
-    query?: string
-): void {
+export function renderer2(element: HTMLElement, query?: string): void {
     let rendererElement: HTMLElement | null;
     if (query) {
         rendererElement = document.querySelector(query);
@@ -28,7 +23,6 @@ export function renderer2(
     }
 
     if (rendererElement) {
-        // rendererElement.innerHTML = Handlebars.compile(template)(context || {});
-        rendererElement.appendChild(component.element);
+        rendererElement.appendChild(element);
     }
 }

@@ -30,6 +30,7 @@ class Registration extends Component<RegistrationProperties> {
                     submit: (event) => {
                         event.preventDefault();
                         if (this.valid) {
+                            // eslint-disable-next-line no-console
                             console.log(this.properties.form.value);
                             // Router.navigate('chats.html');
                         }
@@ -122,4 +123,4 @@ class Registration extends Component<RegistrationProperties> {
     }
 }
 
-renderer2(new Registration());
+renderer2(new Registration().element);

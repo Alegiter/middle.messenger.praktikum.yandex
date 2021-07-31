@@ -29,6 +29,7 @@ class Login extends Component<LoginProperties> {
                     submit: (event) => {
                         event.preventDefault();
                         if (this.valid) {
+                            // eslint-disable-next-line no-console
                             console.log(this.properties.form.value);
                             // Router.navigate('chats.html');
                         }
@@ -97,4 +98,4 @@ class Login extends Component<LoginProperties> {
     }
 }
 
-renderer2(new Login());
+renderer2(new Login().element);

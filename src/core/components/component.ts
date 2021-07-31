@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-explicit-any: "off" */
 import EventBus from '../utils/event-bus';
 
 export type ComponentProperties<SomeHTMLElement extends HTMLElement = HTMLDivElement> = {

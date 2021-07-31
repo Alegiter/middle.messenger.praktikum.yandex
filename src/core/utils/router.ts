@@ -4,6 +4,6 @@ export default class Router {
         link.href = href;
         document.body.appendChild(link);
         link.click();
-        document.body.lastChild!.remove();
+        document.body.lastChild?.remove();
     }
 }

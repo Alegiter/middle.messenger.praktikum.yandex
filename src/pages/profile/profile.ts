@@ -94,4 +94,4 @@ class Profile extends Component<ProfileProperties> {
     }
 }
 
-renderer2(new Profile());
+renderer2(new Profile().element);

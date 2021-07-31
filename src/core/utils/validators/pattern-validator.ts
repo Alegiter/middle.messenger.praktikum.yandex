@@ -1,9 +1,8 @@
 import { ValidationError, Validator } from './validator';
 
 export default class PatternValidator implements Validator {
-    constructor(private pattern: string | RegExp) {
-        //
-    }
+    // eslint-disable-next-line no-useless-constructor
+    constructor(private pattern: string | RegExp) {}
 
     valid(input: HTMLInputElement): ValidationError | null {
         const valid = new RegExp(this.pattern).test(input.value);
