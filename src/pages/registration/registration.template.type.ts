@@ -1,10 +1,9 @@
 import { HeaderPartial } from '../../markup/partials/header/header.partial.type';
-import { FormPartial } from '../../markup/partials/form/form.partial.type';
 import { LinkTemplate } from '../../core/types/link-template';
+import Form from '../../core/components/form/form';
 
 export type RegistrationTemplate = {
     header: HeaderPartial;
-    form: FormPartial;
-    signUp: LinkTemplate;
+    form: Form;
     hasAccount: LinkTemplate;
 };

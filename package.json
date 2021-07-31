@@ -9,7 +9,7 @@
         "start": "parcel serve --no-cache  -p 3000 src/static/*.html --dist-dir dist",
         "prestart": "npm run prebuild",
         "build": "parcel build --no-cache --no-source-maps src/static/*.html --dist-dir dist",
-        "prebuild": "npm run linting && npm run clear",
+        "prebuild": "npm run clear",
         "clear": "rm -rf ./dist",
         "tsc": "tsc",
         "lint": "eslint ./src",

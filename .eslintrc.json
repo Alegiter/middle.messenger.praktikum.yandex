@@ -4,9 +4,9 @@
         "es2021": true
     },
     "extends": [
-        "plugin:@typescript-eslint/recommended",
         "airbnb-base",
-        "prettier"
+        "prettier",
+        "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -26,7 +26,8 @@
             }
         },
         "import/extensions": [
-            ".ts", ".pcss"
+            ".ts",
+            ".pcss"
         ]
     },
     "rules": {
@@ -43,6 +44,17 @@
             {
                 "tabWidth": 4
             }
-        ]
+        ],
+        "no-unused-vars": "off",
+        "class-methods-use-this": "off",
+        "lines-between-class-members": [
+            "error",
+            "always",
+            {
+                "exceptAfterSingleLine": true
+            }
+        ],
+        "no-void": "off",
+        "no-underscore-dangle": "off"
     }
 }
