@@ -15,7 +15,7 @@ import MailValidator from '../../core/utils/validators/mail-validator';
 
 type RegistrationProperties = ComponentProperties & RegistrationTemplate;
 
-class Registration extends Component<RegistrationProperties> {
+export class Registration extends Component<RegistrationProperties> {
     constructor() {
         super('div', {
             header: {

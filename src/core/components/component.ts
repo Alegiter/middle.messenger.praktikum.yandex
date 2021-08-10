@@ -17,7 +17,8 @@ export default class Component<PropertiesType extends ComponentProperties> {
         FLOW_CDM: 'flow:component-did-mount',
         FLOW_CDU: 'flow:component-did-update',
         FLOW_RENDER: 'flow:render',
-        FLOW_CDR: 'flow:component-did-render'
+        FLOW_CDR: 'flow:component-did-render',
+        FLOW_DESTROY: 'flow:destroy'
     };
 
     private _element!: HTMLElement;
@@ -35,11 +36,15 @@ export default class Component<PropertiesType extends ComponentProperties> {
     }
 
     private registerEvents() {
-        // this.eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
+        this.lifeCycle.on(Component.EVENTS.INIT, this.init.bind(this));
         this.lifeCycle.on(Component.EVENTS.FLOW_CDM, this.componentDidMount.bind(this));
         this.lifeCycle.on(Component.EVENTS.FLOW_CDU, this.componentDidUpdate.bind(this));
         this.lifeCycle.on(Component.EVENTS.FLOW_RENDER, this.render.bind(this));
         this.lifeCycle.on(Component.EVENTS.FLOW_CDR, this.componentDidRender.bind(this));
+        this.lifeCycle.on(
+            Component.EVENTS.FLOW_DESTROY,
+            this.componentDestroy.bind(this)
+        );
     }
 
     private createResources(): void {
@@ -141,6 +146,15 @@ export default class Component<PropertiesType extends ComponentProperties> {
         void 0;
     }
 
+    private componentDestroy(): void {
+        this.onComponentDestroy();
+        this.removeEventListeners();
+    }
+
+    onComponentDestroy(): void {
+        void 0;
+    }
+
     private makePropsProxy(props?: PropertiesType): PropertiesType {
         return new Proxy(props || {}, {
             set: (target: PropertiesType, prop: string, val: unknown) => {
@@ -179,11 +193,15 @@ export default class Component<PropertiesType extends ComponentProperties> {
         return element;
     }
 
-    show(): void {
-        this.element.style.display = 'block';
+    create(): void {
+        console.log('Component create');
+
+        this.lifeCycle.emit(Component.EVENTS.INIT);
     }
 
-    hide(): void {
-        this.element.style.display = 'none';
+    destroy(): void {
+        console.log('Component destroy');
+
+        this.lifeCycle.emit(Component.EVENTS.FLOW_DESTROY);
     }
 }

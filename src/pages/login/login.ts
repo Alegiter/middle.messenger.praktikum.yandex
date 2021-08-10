@@ -11,11 +11,12 @@ import RequireValidator from '../../core/utils/validators/required-validator';
 import PatternValidator from '../../core/utils/validators/pattern-validator';
 import template from './login.template';
 import { loginRegexp } from '../../core/utils/constants';
-// import Router from '../../core/utils/router';
+import { Router } from '../../core/utils/routing/router';
+import { Routes } from '../../core/utils/routing/routes';
 
 type LoginProperties = ComponentProperties & LoginTemplate;
 
-class Login extends Component<LoginProperties> {
+export class Login extends Component<LoginProperties> {
     constructor() {
         super('div', {
             header: {
@@ -75,10 +76,15 @@ class Login extends Component<LoginProperties> {
                     text: 'Войти'
                 })
             }),
-            needAccount: {
-                title: 'Создать аккаунт',
-                href: 'registration.html'
-            }
+            needAccount: new Button({
+                text: 'Создать аккаунт',
+                type: 'link',
+                events: {
+                    click: () => {
+                        Router.go(Routes.SIGNUP);
+                    }
+                }
+            })
         });
     }
 
@@ -86,10 +92,11 @@ class Login extends Component<LoginProperties> {
         return Handlebars.compile(template)(this.properties);
     }
 
-    onComponentDidRender() {
+    onComponentDidRender(): void {
         const cardBody = this.element.querySelector('.card__body');
         if (cardBody) {
             cardBody.appendChild(this.properties.form.element);
+            cardBody.appendChild(this.properties.needAccount.element);
         }
     }
 

@@ -12,7 +12,7 @@ import Form from '../../core/components/form/form';
 
 type ProfileProperties = ComponentProperties & ProfileTemplate;
 
-class Profile extends Component<ProfileProperties> {
+export class Profile extends Component<ProfileProperties> {
     constructor() {
         super('div', {
             header: {

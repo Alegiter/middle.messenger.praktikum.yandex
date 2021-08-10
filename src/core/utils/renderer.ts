@@ -14,7 +14,12 @@ export default function renderer(
     }
 }
 
-export function renderer2(element: HTMLElement, query?: string): void {
+export function renderer2(
+    element: HTMLElement,
+    options: { query?: string; deleteElement?: boolean } = {}
+): void {
+    console.log('renderer2');
+    const { query, deleteElement } = options;
     let rendererElement: HTMLElement | null;
     if (query) {
         rendererElement = document.querySelector(query);
@@ -23,6 +28,10 @@ export function renderer2(element: HTMLElement, query?: string): void {
     }
 
     if (rendererElement) {
-        rendererElement.appendChild(element);
+        if (deleteElement) {
+            rendererElement.removeChild(element);
+        } else {
+            rendererElement.appendChild(element);
+        }
     }
 }
