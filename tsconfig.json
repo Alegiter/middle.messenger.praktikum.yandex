@@ -1,0 +1,24 @@
+{
+    "include": [
+        "src/**/*"
+    ],
+    "compilerOptions": {
+        "target": "ESNEXT",
+        "module": "ESNext",
+        "noEmit": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noImplicitThis": false,
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "moduleResolution": "node",
+        "esModuleInterop": false,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

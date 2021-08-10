@@ -1,9 +1,10 @@
 @import '../../styles/base.pcss';
 @import '../../styles/card.pcss';
-@import '../../styles/button.pcss';
+@import '../../core/components/button/button.pcss';
+@import '../../core/components/input/input.pcss';
 @import '../../markup/partials/header/header.partial.pcss';
-@import '../../markup/partials/avatar/avatar.pcss';
-@import '../../markup/partials/form/form.partial.pcss';
+@import '../../markup/partials/avatar/avatar.partial.pcss';
+@import '../../core/components/form/form.pcss';
 @import 'markup/partials/profile-image/profile-image.partial.pcss';
 
 .profile {
@@ -16,6 +17,10 @@
 
     &__name {
         @extend .title;
+    }
+
+    &__form {
+        /* todo */
     }
 
     &__footer {

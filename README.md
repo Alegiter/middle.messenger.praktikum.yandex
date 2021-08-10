@@ -32,3 +32,8 @@ PR's are accepted to `main` branch only
 ## Netlify
 
 https://elated-davinci-b5b9aa.netlify.app/
+
+## Dev
+
+Typescript types checking - `npm run tsc` <br>
+Linting (include Eslint, Prettier, Stylelint) - `npm run linting`  <br>
