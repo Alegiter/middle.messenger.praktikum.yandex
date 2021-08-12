@@ -1,6 +1,5 @@
 import template from './change.template';
 import '../../../markup/partials/header/header.partial';
-import { renderer2 } from '../../../core/utils/renderer';
 import { ProfilePasswordChangeTemplate } from './change.template.type';
 import Component, { ComponentProperties } from '../../../core/components/component';
 import Form from '../../../core/components/form/form';
@@ -13,7 +12,7 @@ import { Handlebars } from '../../../core/utils/handlebars';
 type ProfilePasswordChangeProperties = ComponentProperties &
     ProfilePasswordChangeTemplate;
 
-class ProfilePasswordChange extends Component<ProfilePasswordChangeProperties> {
+export class ProfilePasswordChange extends Component<ProfilePasswordChangeProperties> {
     constructor() {
         super('div', {
             header: {
@@ -87,5 +86,3 @@ class ProfilePasswordChange extends Component<ProfilePasswordChangeProperties> {
         }
     }
 }
-
-renderer2(new ProfilePasswordChange().element);

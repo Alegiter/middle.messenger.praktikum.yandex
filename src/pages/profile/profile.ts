@@ -2,7 +2,6 @@ import template from './profile.template';
 import '../../markup/partials/avatar/avatar.partial';
 import '../../markup/partials/header/header.partial';
 import './markup/partials/profile-image/profile-image.partial';
-import { renderer2 } from '../../core/utils/renderer';
 import { ProfileTemplate } from './profile.template.type';
 import Component, { ComponentProperties } from '../../core/components/component';
 import { Handlebars } from '../../core/utils/handlebars';
@@ -93,5 +92,3 @@ export class Profile extends Component<ProfileProperties> {
         }
     }
 }
-
-renderer2(new Profile().element);

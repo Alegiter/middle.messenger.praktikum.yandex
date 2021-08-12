@@ -1,5 +1,4 @@
 import '../../markup/partials/header/header.partial';
-import { renderer2 } from '../../core/utils/renderer';
 import { LoginTemplate } from './login.template.type';
 import Button from '../../core/components/button/button';
 import Component, { ComponentProperties } from '../../core/components/component';
@@ -104,5 +103,3 @@ export class Login extends Component<LoginProperties> {
         return this.properties.form.valid;
     }
 }
-
-renderer2(new Login().element);

@@ -2,7 +2,6 @@ import template from './edit.template';
 import '../../../markup/partials/avatar/avatar.partial';
 import '../../../markup/partials/header/header.partial';
 import '../markup/partials/profile-image/profile-image.partial';
-import { renderer2 } from '../../../core/utils/renderer';
 import { ProfileTemplate } from '../profile.template.type';
 import Component, { ComponentProperties } from '../../../core/components/component';
 import { Handlebars } from '../../../core/utils/handlebars';
@@ -17,7 +16,7 @@ import Button from '../../../core/components/button/button';
 
 type ProfileEditProperties = ComponentProperties & ProfileTemplate;
 
-class ProfileEdit extends Component<ProfileEditProperties> {
+export class ProfileEdit extends Component<ProfileEditProperties> {
     constructor() {
         super('div', {
             header: {
@@ -125,5 +124,3 @@ class ProfileEdit extends Component<ProfileEditProperties> {
         }
     }
 }
-
-renderer2(new ProfileEdit().element);

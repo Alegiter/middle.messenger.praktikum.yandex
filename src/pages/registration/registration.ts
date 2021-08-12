@@ -1,6 +1,5 @@
 import template from './registration.template';
 import '../../markup/partials/header/header.partial';
-import { renderer2 } from '../../core/utils/renderer';
 import { RegistrationTemplate } from './registration.template.type';
 import Component, { ComponentProperties } from '../../core/components/component';
 import Form from '../../core/components/form/form';
@@ -122,5 +121,3 @@ export class Registration extends Component<RegistrationProperties> {
         return this.properties.form.valid;
     }
 }
-
-renderer2(new Registration().element);
