@@ -3,6 +3,7 @@ import { Handlebars } from '../../utils/handlebars';
 
 type ButtonProperties = ComponentProperties<HTMLButtonElement> & {
     text: string;
+    type?: 'button' | 'link';
 };
 
 export default class Button extends Component<ButtonProperties> {
@@ -27,5 +28,8 @@ export default class Button extends Component<ButtonProperties> {
 
     private addStyles() {
         this.element.classList.add('button');
+        if (this.properties.type === 'link') {
+            this.element.classList.add('button_link');
+        }
     }
 }
