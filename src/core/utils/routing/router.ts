@@ -22,7 +22,11 @@ class _Router {
     }
 
     start(): void {
-        console.log('router start', window.location.pathname);
+        console.log(
+            'router start',
+            new Date().toLocaleString(),
+            window.location.pathname
+        );
         window.addEventListener('popstate', () => {
             console.log('popstate event', window.location.pathname);
             this.onNavigate(window.location.pathname);

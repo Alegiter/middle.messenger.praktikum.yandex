@@ -1,0 +1,6 @@
+{
+    "/api/v2": {
+        "target": "http://ya-praktikum.tech/",
+        "toProxy": true
+    }
+}

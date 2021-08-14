@@ -32,7 +32,7 @@ export default class Component<PropertiesType extends ComponentProperties> {
         };
 
         this.registerEvents();
-        this.init();
+        this.lifeCycle.emit(Component.EVENTS.INIT);
     }
 
     private registerEvents() {
@@ -53,11 +53,16 @@ export default class Component<PropertiesType extends ComponentProperties> {
     }
 
     private init() {
+        console.log('Component init');
+        this.onInit();
         this.createResources();
         this.lifeCycle.emit(Component.EVENTS.FLOW_CDM);
     }
 
+    onInit(): void {}
+
     private componentDidMount(): void {
+        console.log('Component did mount');
         this.onComponentDidMount(this.properties);
         this.lifeCycle.emit(Component.EVENTS.FLOW_RENDER);
     }
@@ -110,6 +115,7 @@ export default class Component<PropertiesType extends ComponentProperties> {
     }
 
     private render(): void {
+        console.log('Component rendering');
         this.removeEventListeners();
         const block = this.onRender();
         if (block) {
@@ -139,6 +145,7 @@ export default class Component<PropertiesType extends ComponentProperties> {
     }
 
     private componentDidRender(): void {
+        console.log('Component did render');
         this.onComponentDidRender();
     }
 

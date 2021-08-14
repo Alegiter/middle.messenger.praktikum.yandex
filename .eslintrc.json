@@ -57,10 +57,18 @@
         "no-void": "off",
         "no-underscore-dangle": "off",
         "no-shadow": "off",
-        "@typescript-eslint/no-shadow": [
-            "error"
-        ],
+        "@typescript-eslint/no-shadow": ["error"],
         "no-useless-constructor": "off",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "camelcase": [
+            "error",
+            {
+                "allow": [
+                    "first_name",
+                    "second_name",
+                    "display_name"
+                ]
+            }
+        ]
     }
 }

@@ -12,10 +12,14 @@ import template from './login.template';
 import { loginRegexp } from '../../core/utils/constants';
 import { Router } from '../../core/utils/routing/router';
 import { Routes } from '../../core/utils/routing/routes';
+import { LoginController } from './login.controller';
+import { SignInRequest } from '../../core/api/types/sign-in-request';
 
 type LoginProperties = ComponentProperties & LoginTemplate;
 
 export class Login extends Component<LoginProperties> {
+    private readonly controller = new LoginController();
+
     constructor() {
         super('div', {
             header: {
@@ -28,11 +32,7 @@ export class Login extends Component<LoginProperties> {
                 events: {
                     submit: (event) => {
                         event.preventDefault();
-                        if (this.valid) {
-                            // eslint-disable-next-line no-console
-                            console.log(this.properties.form.value);
-                            // Router.navigate('chats.html');
-                        }
+                        this.signIn();
                     }
                 },
                 items: [
@@ -85,6 +85,12 @@ export class Login extends Component<LoginProperties> {
                 }
             })
         });
+        console.log('Login after super');
+        this.controller.isUserAuthorized().then((authorized) => {
+            if (authorized) {
+                Router.go(Routes.MESSENGER);
+            }
+        });
     }
 
     onRender(): string {
@@ -95,11 +101,29 @@ export class Login extends Component<LoginProperties> {
         const cardBody = this.element.querySelector('.card__body');
         if (cardBody) {
             cardBody.appendChild(this.properties.form.element);
-            cardBody.appendChild(this.properties.needAccount.element);
+        }
+        const cardFooter = this.element.querySelector('.card__footer');
+        if (cardFooter) {
+            cardFooter.appendChild(this.properties.needAccount.element);
         }
     }
 
     private get valid(): boolean {
         return this.properties.form.valid;
+    }
+
+    private signIn(): void {
+        if (this.valid) {
+            this.controller
+                .signIn(this.properties.form.value as SignInRequest)
+                .then((ok) => {
+                    if (ok) {
+                        console.log('Redirect to chats');
+                    }
+                })
+                .catch((error) => {
+                    console.log('Show error notification', error);
+                });
+        }
     }
 }

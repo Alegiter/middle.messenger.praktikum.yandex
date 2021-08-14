@@ -6,10 +6,6 @@ export default `
             {{/header}}
         </div>
         <div class="card__body"></div>
-        <div class="card__footer">
-            <a class="link link_small" href="{{hasAccount.href}}">
-                {{hasAccount.title}}
-            </a>
-        </div>
+        <div class="card__footer"></div>
     </div>
 `;
