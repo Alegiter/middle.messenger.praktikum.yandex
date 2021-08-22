@@ -86,8 +86,6 @@ export class Login extends Component<LoginProperties> {
                 }
             })
         });
-
-        this.checkIfUserAuthorizedAlready();
     }
 
     onRender(): string {
@@ -100,14 +98,6 @@ export class Login extends Component<LoginProperties> {
             .queryAndAppend('.card__header', header.element)
             .queryAndAppend('.card__body', form.element)
             .queryAndAppend('.card__footer', needAccount.element);
-    }
-
-    private checkIfUserAuthorizedAlready(): void {
-        this.controller.isUserAuthorized().then((authorized: boolean) => {
-            if (authorized) {
-                Router.go(Routes.MESSENGER);
-            }
-        });
     }
 
     private get valid(): boolean {
@@ -125,7 +115,7 @@ export class Login extends Component<LoginProperties> {
                 })
                 .catch((error) => {
                     // todo [sitnik] notification
-                    console.log('Show error notification', error);
+                    void error;
                 });
         }
     }

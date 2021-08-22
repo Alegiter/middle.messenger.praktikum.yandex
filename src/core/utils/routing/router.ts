@@ -1,6 +1,7 @@
 import Route from './route';
 import Component from '../../components/component';
 import { SafeAny, Type } from '../types';
+import { Routes } from './routes';
 
 class _Router {
     private readonly routes: Route[] = [];
@@ -10,7 +11,7 @@ class _Router {
 
     constructor(private routerOutlet?: string) {}
 
-    withRoute(path: string, componentClass: Type<Component<SafeAny>>): this {
+    withRoute(path: Routes, componentClass: Type<Component<SafeAny>>): this {
         this.routes.push(
             new Route({
                 path,
@@ -43,7 +44,7 @@ class _Router {
         route.render();
     }
 
-    go(path: string): void {
+    go(path: Routes): void {
         this.history.pushState({}, '', path);
         this.onNavigate(path);
     }
