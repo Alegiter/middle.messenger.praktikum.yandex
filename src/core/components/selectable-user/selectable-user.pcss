@@ -1,0 +1,27 @@
+.selectable-user {
+    @extend .flex;
+    @extend .flex_centered;
+    padding: 5px;
+    margin-bottom: 5px;
+    position: relative;
+
+    &:hover {
+        background-color: #e8e8e8;
+        cursor: pointer;
+    }
+
+    &__body {
+        margin-left: 10px;
+        flex: 1;
+
+        &-title,
+        &-subtitle {
+            @extend .flex;
+        }
+    }
+
+    &__title {
+        @extend .flex;
+        font-weight: bold;
+    }
+}

@@ -1,8 +1,0 @@
-{
-    "/api": {
-        "target": "https://ya-praktikum.tech/",
-        "secure": true,
-        "changeOrigin": true,
-        "cookieDomainRewrite": ""
-    }
-}

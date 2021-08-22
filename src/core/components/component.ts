@@ -34,14 +34,14 @@ export default class Component<PropertiesType extends ComponentProperties> {
     private readonly meta: { tagName: string; properties: PropertiesType };
     private lifeCycle = new EventBus();
 
-    protected constructor(tagName = 'div', properties?: PropertiesType) {
+    constructor(tagName = 'div', properties?: PropertiesType) {
         this.meta = {
             tagName,
             properties: this.makePropsProxy(properties)
         };
 
         this.registerEvents();
-        this.init();
+        this.lifeCycle.emit(Component.EVENTS.INIT);
     }
 
     private registerEvents() {
@@ -67,6 +67,7 @@ export default class Component<PropertiesType extends ComponentProperties> {
     }
 
     private componentDidMount(): void {
+        // console.log('Component did mount');
         this.onComponentDidMount(this.properties);
         this.lifeCycle.emit(Component.EVENTS.FLOW_RENDER);
     }
@@ -93,10 +94,6 @@ export default class Component<PropertiesType extends ComponentProperties> {
         return this.meta.properties;
     }
 
-    // setProps(nextProps: Partial<PropertiesType>): void {
-    //     Object.assign(this.properties, nextProps);
-    // }
-
     get element(): HTMLElement {
         return this._element;
     }
@@ -118,6 +115,7 @@ export default class Component<PropertiesType extends ComponentProperties> {
     }
 
     private render(): void {
+        // console.log('Component rendering');
         this.removeEventListeners();
         const block = this.onRender();
         if (block) {
@@ -134,7 +132,6 @@ export default class Component<PropertiesType extends ComponentProperties> {
                 });
             } else {
                 this._element.appendChild(block);
-                // this._element.insertAdjacentElement('beforeend', block);
             }
         }
 
@@ -149,6 +146,7 @@ export default class Component<PropertiesType extends ComponentProperties> {
     }
 
     private componentDidRender(): void {
+        // console.log('Component did render');
         this.onComponentDidRender();
     }
 

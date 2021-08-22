@@ -8,7 +8,7 @@ import Input from '../../../core/components/input/input';
 import MailValidator from '../../../core/utils/validators/mail-validator';
 import PatternValidator from '../../../core/utils/validators/pattern-validator';
 import {
-    apiUrl,
+    apiResourcesUrl,
     loginRegexp,
     namesRegexp,
     phoneRegexp
@@ -16,12 +16,12 @@ import {
 import RequireValidator from '../../../core/utils/validators/required-validator';
 import Button from '../../../core/components/button/button';
 import Header from '../../../core/components/header/header';
-import { Router } from '../../../core/utils/routing/router';
+import { AppRouter } from '../../../core/utils/routing/router';
 import { Routes } from '../../../core/utils/routing/routes';
 import { QuerySelectAppender } from '../../../core/utils/query-select-appender';
 import { ProfileEditController } from './edit.controller';
 import { UserUpdateRequest } from '../../../core/api/types/user-update-request';
-import { initialsFromUser } from '../../../core/utils/naming-untils';
+import { initialsFromUser } from '../../../core/utils/user-untils';
 import { User } from '../../../core/api/types/user';
 import EditableAvatar from '../components/editable-avatar/editable-avatar';
 import Avatar from '../../../core/components/avatar/avatar';
@@ -43,7 +43,7 @@ export class ProfileEdit extends Component<ProfileEditProperties> {
                 },
                 back: {
                     click: () => {
-                        Router.go(Routes.SETTINGS);
+                        AppRouter.go(Routes.SETTINGS);
                     }
                 }
             }),
@@ -148,11 +148,10 @@ export class ProfileEdit extends Component<ProfileEditProperties> {
                 .update(this.properties.form.value as UserUpdateRequest)
                 .then(() => {
                     // todo [sitnik] success notify
-                    Router.go(Routes.SETTINGS);
+                    AppRouter.go(Routes.SETTINGS);
                 })
                 .catch(() => {
                     // todo [sitnik] error handle
-                    console.error('Не сохранилось');
                 });
         }
     }
@@ -184,6 +183,6 @@ export class ProfileEdit extends Component<ProfileEditProperties> {
     }
 
     setUserAvatar(user: User): void {
-        this.properties.profileImage.properties.avatar.properties.href = `${apiUrl}/resources${user.avatar}`;
+        this.properties.profileImage.properties.avatar.properties.href = `${apiResourcesUrl}/${user.avatar}`;
     }
 }

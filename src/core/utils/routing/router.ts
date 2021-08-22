@@ -1,9 +1,9 @@
 import Route from './route';
 import Component from '../../components/component';
-import { SafeAny, Type } from '../types';
+import { Type } from '../types';
 import { Routes } from './routes';
 
-class _Router {
+export class Router {
     private readonly routes: Route[] = [];
     private activatedRoute: Route | null = null;
 
@@ -11,7 +11,7 @@ class _Router {
 
     constructor(private routerOutlet?: string) {}
 
-    withRoute(path: Routes, componentClass: Type<Component<SafeAny>>): this {
+    withRoute(path: Routes, componentClass: Type<Component<never>>): this {
         this.routes.push(
             new Route({
                 path,
@@ -48,10 +48,6 @@ class _Router {
         this.history.pushState({}, '', path);
         this.onNavigate(path);
     }
-
-    back(): void {
-        this.history.back();
-    }
 }
 
-export const Router = new _Router();
+export const AppRouter = new Router();

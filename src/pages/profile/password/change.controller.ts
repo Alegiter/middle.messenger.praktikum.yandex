@@ -2,14 +2,16 @@ import { UserApi } from '../../../core/api/services/user.api';
 import { ValidationError } from '../../../core/utils/errors/validation-error';
 import { ApiResponseError } from '../../../core/utils/errors/api-response-error';
 
+export type UserUpdatePasswordData = {
+    oldPassword: string;
+    newPassword: string;
+    newPasswordAgain: string;
+};
+
 export class ProfilePasswordChangeController {
     private readonly userApi = new UserApi();
 
-    changePassword(data: {
-        oldPassword: string;
-        newPassword: string;
-        newPasswordAgain: string;
-    }): Promise<void> {
+    changePassword(data: UserUpdatePasswordData): Promise<void> {
         if (this.validateNewPassword(data.newPassword, data.newPasswordAgain)) {
             const { oldPassword, newPassword } = data;
             return this.userApi

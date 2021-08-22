@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import HttpMethod from './http-method';
+import { ApiResponseError } from '../utils/errors/api-response-error';
 
 export type HttpRequestOptions = {
     body?: unknown;
@@ -8,17 +8,19 @@ export type HttpRequestOptions = {
 };
 
 export default class HttpClient {
-    constructor(private readonly baseUrl: string) {}
+    constructor(private readonly baseUrl?: string) {}
 
-    request(
+    request<T>(
         method: HttpMethod,
         url: string,
         options: HttpRequestOptions = {}
-    ): Promise<XMLHttpRequest> {
+    ): Promise<T> {
         const { body = {}, headers = {}, timeout = 5000 } = options;
 
-        // eslint-disable-next-line no-param-reassign
-        url = this.baseUrl + url;
+        if (this.baseUrl) {
+            // eslint-disable-next-line no-param-reassign
+            url = this.baseUrl + url;
+        }
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
@@ -34,7 +36,12 @@ export default class HttpClient {
             xhr.setRequestHeader('Accept', 'application/json');
 
             xhr.onload = () => {
-                resolve(xhr);
+                switch (xhr.status) {
+                    case 200:
+                        return resolve(xhr.response);
+                    default:
+                        return reject(new ApiResponseError(xhr.response));
+                }
             };
 
             xhr.onabort = reject;
@@ -50,28 +57,28 @@ export default class HttpClient {
                 xhr.send(body);
             } else {
                 xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.send(JSON.stringify(body));
+                xhr.send(body ? JSON.stringify(body) : null);
             }
         });
     }
 
-    get(url: string, options?: HttpRequestOptions): Promise<XMLHttpRequest> {
-        return this.request(HttpMethod.GET, url, options);
+    get<T>(url: string, options?: HttpRequestOptions): Promise<T> {
+        return this.request<T>(HttpMethod.GET, url, options);
     }
 
-    post(url: string, options?: HttpRequestOptions): Promise<XMLHttpRequest> {
-        return this.request(HttpMethod.POST, url, options);
+    post<T>(url: string, options?: HttpRequestOptions): Promise<T> {
+        return this.request<T>(HttpMethod.POST, url, options);
     }
 
-    delete(url: string, options?: HttpRequestOptions): Promise<XMLHttpRequest> {
-        return this.request(HttpMethod.DELETE, url, options);
+    delete<T>(url: string, options?: HttpRequestOptions): Promise<T> {
+        return this.request<T>(HttpMethod.DELETE, url, options);
     }
 
-    put(url: string, options?: HttpRequestOptions): Promise<XMLHttpRequest> {
-        return this.request(HttpMethod.PUT, url, options);
+    put<T>(url: string, options?: HttpRequestOptions): Promise<T> {
+        return this.request<T>(HttpMethod.PUT, url, options);
     }
 
-    patch(url: string, options?: HttpRequestOptions): Promise<XMLHttpRequest> {
-        return this.request(HttpMethod.PATCH, url, options);
+    patch<T>(url: string, options?: HttpRequestOptions): Promise<T> {
+        return this.request<T>(HttpMethod.PATCH, url, options);
     }
 }

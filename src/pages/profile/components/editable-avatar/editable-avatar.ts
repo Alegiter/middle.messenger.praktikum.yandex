@@ -24,7 +24,7 @@ export default class EditableAvatar extends Component<EditableAvatarProperties> 
         const fileInput = new Input({
             html: {
                 type: 'file',
-                accept: 'image/png'
+                accept: 'image/*'
             },
             classList: ['hidden']
         });
