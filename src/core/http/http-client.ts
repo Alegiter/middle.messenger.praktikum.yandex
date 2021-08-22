@@ -1,64 +1,77 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import HttpMethod from './http-method';
 
 export type HttpRequestOptions = {
-    method?: HttpMethod;
-    data?: unknown;
+    body?: unknown;
     headers?: Record<string, string>;
     timeout?: number;
 };
 
 export default class HttpClient {
-    get<T>(url: string, options: HttpRequestOptions): Promise<T> {
-        return this.request<T>(HttpMethod.GET, url, options, options.timeout);
-    }
+    constructor(private readonly baseUrl: string) {}
 
-    post<T>(url: string, options: HttpRequestOptions): Promise<T> {
-        return this.request<T>(HttpMethod.POST, url, options, options.timeout);
-    }
-
-    delete<T>(url: string, options: HttpRequestOptions): Promise<T> {
-        return this.request<T>(HttpMethod.DELETE, url, options, options.timeout);
-    }
-
-    put<T>(url: string, options: HttpRequestOptions): Promise<T> {
-        return this.request<T>(HttpMethod.PUT, url, options, options.timeout);
-    }
-
-    patch<T>(url: string, options: HttpRequestOptions): Promise<T> {
-        return this.request<T>(HttpMethod.PATCH, url, options, options.timeout);
-    }
-
-    request<T>(
+    request(
         method: HttpMethod,
         url: string,
-        options: HttpRequestOptions,
-        timeout = 5000
-    ): Promise<T> {
-        const { data = {}, headers = {} } = options;
+        options: HttpRequestOptions = {}
+    ): Promise<XMLHttpRequest> {
+        const { body = {}, headers = {}, timeout = 5000 } = options;
+
+        // eslint-disable-next-line no-param-reassign
+        url = this.baseUrl + url;
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open(method, url);
 
             xhr.timeout = timeout;
+            xhr.withCredentials = true;
+            xhr.responseType = 'json';
 
-            Object.entries(headers).forEach((entry) =>
-                xhr.setRequestHeader(entry[0], entry[1])
-            );
+            Object.entries(headers).forEach((entry) => {
+                xhr.setRequestHeader(entry[0], entry[1]);
+            });
+            xhr.setRequestHeader('Accept', 'application/json');
 
             xhr.onload = () => {
-                resolve(xhr.response as T);
+                resolve(xhr);
             };
 
             xhr.onabort = reject;
             xhr.onerror = reject;
             xhr.ontimeout = reject;
 
-            if (method === HttpMethod.GET || !data) {
+            if (method === HttpMethod.GET) {
+                if (body) {
+                    // todo [sitnik] добавить queryParams
+                }
                 xhr.send();
+            } else if (body instanceof FormData) {
+                xhr.send(body);
             } else {
-                xhr.send(JSON.stringify(data));
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify(body));
             }
         });
+    }
+
+    get(url: string, options?: HttpRequestOptions): Promise<XMLHttpRequest> {
+        return this.request(HttpMethod.GET, url, options);
+    }
+
+    post(url: string, options?: HttpRequestOptions): Promise<XMLHttpRequest> {
+        return this.request(HttpMethod.POST, url, options);
+    }
+
+    delete(url: string, options?: HttpRequestOptions): Promise<XMLHttpRequest> {
+        return this.request(HttpMethod.DELETE, url, options);
+    }
+
+    put(url: string, options?: HttpRequestOptions): Promise<XMLHttpRequest> {
+        return this.request(HttpMethod.PUT, url, options);
+    }
+
+    patch(url: string, options?: HttpRequestOptions): Promise<XMLHttpRequest> {
+        return this.request(HttpMethod.PATCH, url, options);
     }
 }

@@ -18,7 +18,6 @@ export function renderer2(
     element: HTMLElement,
     options: { query?: string; deleteElement?: boolean } = {}
 ): void {
-    console.log('renderer2');
     const { query, deleteElement } = options;
     let rendererElement: HTMLElement | null;
     if (query) {
