@@ -61,4 +61,25 @@ export default class Form extends Component<FormProperties> {
             {}
         );
     }
+
+    set value(value: Record<string, string>) {
+        Object.entries(value).forEach(([key, val]) => {
+            const item = this.properties.items.find(
+                (it) => it.properties.input.properties.html?.name === key
+            );
+            if (item) {
+                let htmlProps = item.properties.input.properties.html;
+                if (!htmlProps) {
+                    htmlProps = {};
+                }
+                item.properties.input.properties.html = { ...htmlProps, value: val };
+            }
+        });
+    }
+
+    getItemByName(name: string): FormItem | undefined {
+        return this.properties.items.find(
+            (item) => item.properties.input.properties.html?.name === name
+        );
+    }
 }

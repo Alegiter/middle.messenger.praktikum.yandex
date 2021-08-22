@@ -2,10 +2,9 @@
 @import '../../styles/card.pcss';
 @import '../../core/components/button/button.pcss';
 @import '../../core/components/input/input.pcss';
-@import '../../markup/partials/header/header.partial.pcss';
-@import '../../markup/partials/avatar/avatar.partial.pcss';
 @import '../../core/components/form/form.pcss';
-@import 'markup/partials/profile-image/profile-image.partial.pcss';
+@import '../../core/components/header/header.pcss';
+@import 'components/editable-avatar/editable-avatar.pcss';
 
 .profile {
     &__image {
@@ -17,6 +16,8 @@
 
     &__name {
         @extend .title;
+        @extend .flex;
+        @extend .flex_centered;
     }
 
     &__form {
