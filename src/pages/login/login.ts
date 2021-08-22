@@ -1,4 +1,3 @@
-import '../../markup/partials/header/header.partial';
 import { LoginTemplate } from './login.template.type';
 import Button from '../../core/components/button/button';
 import Component, { ComponentProperties } from '../../core/components/component';
@@ -12,27 +11,29 @@ import template from './login.template';
 import { loginRegexp } from '../../core/utils/constants';
 import { Router } from '../../core/utils/routing/router';
 import { Routes } from '../../core/utils/routing/routes';
+import { LoginController } from './login.controller';
+import { SignInRequest } from '../../core/api/types/sign-in-request';
+import Header from '../../core/components/header/header';
+import { QuerySelectAppender } from '../../core/utils/query-select-appender';
 
 type LoginProperties = ComponentProperties & LoginTemplate;
 
 export class Login extends Component<LoginProperties> {
+    private readonly controller = new LoginController();
+
     constructor() {
         super('div', {
-            header: {
+            header: new Header({
                 title: {
                     centered: true,
                     value: 'Авторизация'
                 }
-            },
+            }),
             form: new Form({
                 events: {
                     submit: (event) => {
                         event.preventDefault();
-                        if (this.valid) {
-                            // eslint-disable-next-line no-console
-                            console.log(this.properties.form.value);
-                            // Router.navigate('chats.html');
-                        }
+                        this.signIn();
                     }
                 },
                 items: [
@@ -85,6 +86,8 @@ export class Login extends Component<LoginProperties> {
                 }
             })
         });
+
+        this.checkIfUserAuthorizedAlready();
     }
 
     onRender(): string {
@@ -92,14 +95,38 @@ export class Login extends Component<LoginProperties> {
     }
 
     onComponentDidRender(): void {
-        const cardBody = this.element.querySelector('.card__body');
-        if (cardBody) {
-            cardBody.appendChild(this.properties.form.element);
-            cardBody.appendChild(this.properties.needAccount.element);
-        }
+        const { header, form, needAccount } = this.properties;
+        new QuerySelectAppender(this.element)
+            .queryAndAppend('.card__header', header.element)
+            .queryAndAppend('.card__body', form.element)
+            .queryAndAppend('.card__footer', needAccount.element);
+    }
+
+    private checkIfUserAuthorizedAlready(): void {
+        this.controller.isUserAuthorized().then((authorized: boolean) => {
+            if (authorized) {
+                Router.go(Routes.MESSENGER);
+            }
+        });
     }
 
     private get valid(): boolean {
         return this.properties.form.valid;
+    }
+
+    private signIn(): void {
+        if (this.valid) {
+            this.controller
+                .signIn(this.properties.form.value as SignInRequest)
+                .then((ok) => {
+                    if (ok) {
+                        Router.go(Routes.MESSENGER);
+                    }
+                })
+                .catch((error) => {
+                    // todo [sitnik] notification
+                    console.log('Show error notification', error);
+                });
+        }
     }
 }
