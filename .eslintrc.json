@@ -66,7 +66,9 @@
                 "allow": [
                     "first_name",
                     "second_name",
-                    "display_name"
+                    "display_name",
+                    "unread_count",
+                    "last_message"
                 ]
             }
         ]

@@ -5,7 +5,7 @@ import template from './avatar.template';
 type AvatarProperties = ComponentProperties & {
     size?: 'small' | 'default' | 'large';
     href?: string;
-    initials: string;
+    initials?: string;
 };
 
 export default class Avatar extends Component<AvatarProperties> {
