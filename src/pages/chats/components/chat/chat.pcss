@@ -1,0 +1,53 @@
+.chat {
+    @extend .flex;
+    padding: 5px;
+    margin-bottom: 5px;
+    position: relative;
+
+    &:hover:not(&_selected) {
+        background-color: #e8e8e8;
+        cursor: pointer;
+    }
+
+    &_selected {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    &__body {
+        margin-left: 10px;
+        flex: 1;
+
+        &-title,
+        &-subtitle {
+            @extend .flex;
+            justify-content: space-between;
+        }
+    }
+
+    &__title {
+        @extend .flex;
+        font-weight: bold;
+    }
+
+    &__last-message {
+        @extend .flex;
+    }
+
+    &__unread-count {
+        background-color: #fd2b2b;
+        border-radius: 50%;
+        color: white;
+        min-width: 20px;
+        @extend .flex;
+        @extend .flex_centered;
+    }
+
+    &__click-container {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+}

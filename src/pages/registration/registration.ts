@@ -1,5 +1,4 @@
 import template from './registration.template';
-import '../../markup/partials/header/header.partial';
 import { RegistrationTemplate } from './registration.template.type';
 import Component, { ComponentProperties } from '../../core/components/component';
 import Form from '../../core/components/form/form';
@@ -12,9 +11,11 @@ import { loginRegexp, namesRegexp, phoneRegexp } from '../../core/utils/constant
 import Input from '../../core/components/input/input';
 import MailValidator from '../../core/utils/validators/mail-validator';
 import { Routes } from '../../core/utils/routing/routes';
-import { Router } from '../../core/utils/routing/router';
+import { AppRouter } from '../../core/utils/routing/router';
 import { RegistrationController } from './registration.controller';
 import { SignUpRequest } from '../../core/api/types/sign-up-request';
+import Header from '../../core/components/header/header';
+import { QuerySelectAppender } from '../../core/utils/query-select-appender';
 
 type RegistrationProperties = ComponentProperties & RegistrationTemplate;
 
@@ -23,13 +24,12 @@ export class Registration extends Component<RegistrationProperties> {
 
     constructor() {
         super('div', {
-            header: {
+            header: new Header({
                 title: {
                     centered: true,
                     value: 'Регистрация'
                 }
-            },
-            // todo [sitnik] Можно вынести в отдльный компонет для переиспользования
+            }),
             form: new Form({
                 events: {
                     submit: (event) => {
@@ -105,7 +105,7 @@ export class Registration extends Component<RegistrationProperties> {
                 text: 'У меня есть аккаунт',
                 type: 'link',
                 events: {
-                    click: () => Router.go(Routes.LOGIN)
+                    click: () => AppRouter.go(Routes.LOGIN)
                 }
             })
         });
@@ -116,15 +116,11 @@ export class Registration extends Component<RegistrationProperties> {
     }
 
     onComponentDidRender(): void {
-        const cardBody = this.element.querySelector('.card__body');
-        if (cardBody) {
-            cardBody.appendChild(this.properties.form.element);
-        }
-
-        const cardFooter = this.element.querySelector('.card__footer');
-        if (cardFooter) {
-            cardFooter.appendChild(this.properties.hasAccount.element);
-        }
+        const { header, form, hasAccount } = this.properties;
+        new QuerySelectAppender(this.element)
+            .queryAndAppend('.card__header', header.element)
+            .queryAndAppend('.card__body', form.element)
+            .queryAndAppend('.card__footer', hasAccount.element);
     }
 
     private get valid(): boolean {
@@ -137,11 +133,12 @@ export class Registration extends Component<RegistrationProperties> {
                 .signUp(this.properties.form.value as SignUpRequest)
                 .then((ok) => {
                     if (ok) {
-                        console.log('Redirect to login');
+                        AppRouter.go(Routes.LOGIN);
                     }
                 })
                 .catch((error) => {
-                    console.log('Show error notification', error);
+                    // todo [sitnik] error notification
+                    void error;
                 });
         }
     }

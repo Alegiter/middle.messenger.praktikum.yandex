@@ -1,8 +1,9 @@
 import Route from './route';
 import Component from '../../components/component';
-import { Type } from '../types';
+import { SafeAny, Type } from '../types';
+import { Routes } from './routes';
 
-class _Router {
+export class Router {
     private readonly routes: Route[] = [];
     private activatedRoute: Route | null = null;
 
@@ -10,7 +11,7 @@ class _Router {
 
     constructor(private routerOutlet?: string) {}
 
-    withRoute(path: string, componentClass: Type<Component<any>>): this {
+    withRoute(path: Routes, componentClass: Type<Component<SafeAny>>): this {
         this.routes.push(
             new Route({
                 path,
@@ -22,13 +23,7 @@ class _Router {
     }
 
     start(): void {
-        console.log(
-            'router start',
-            new Date().toLocaleString(),
-            window.location.pathname
-        );
         window.addEventListener('popstate', () => {
-            console.log('popstate event', window.location.pathname);
             this.onNavigate(window.location.pathname);
         });
 
@@ -49,20 +44,10 @@ class _Router {
         route.render();
     }
 
-    go(path: string): void {
+    go(path: Routes): void {
         this.history.pushState({}, '', path);
-        this.log();
         this.onNavigate(path);
-    }
-
-    back(): void {
-        this.history.back();
-        this.log();
-    }
-
-    log(): void {
-        console.log('history', this.history);
     }
 }
 
-export const Router = new _Router();
+export const AppRouter = new Router();

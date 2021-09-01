@@ -1,4 +1,3 @@
-import '../../markup/partials/header/header.partial';
 import { LoginTemplate } from './login.template.type';
 import Button from '../../core/components/button/button';
 import Component, { ComponentProperties } from '../../core/components/component';
@@ -10,10 +9,12 @@ import RequireValidator from '../../core/utils/validators/required-validator';
 import PatternValidator from '../../core/utils/validators/pattern-validator';
 import template from './login.template';
 import { loginRegexp } from '../../core/utils/constants';
-import { Router } from '../../core/utils/routing/router';
+import { AppRouter } from '../../core/utils/routing/router';
 import { Routes } from '../../core/utils/routing/routes';
 import { LoginController } from './login.controller';
 import { SignInRequest } from '../../core/api/types/sign-in-request';
+import Header from '../../core/components/header/header';
+import { QuerySelectAppender } from '../../core/utils/query-select-appender';
 
 type LoginProperties = ComponentProperties & LoginTemplate;
 
@@ -22,12 +23,12 @@ export class Login extends Component<LoginProperties> {
 
     constructor() {
         super('div', {
-            header: {
+            header: new Header({
                 title: {
                     centered: true,
                     value: 'Авторизация'
                 }
-            },
+            }),
             form: new Form({
                 events: {
                     submit: (event) => {
@@ -80,16 +81,10 @@ export class Login extends Component<LoginProperties> {
                 type: 'link',
                 events: {
                     click: () => {
-                        Router.go(Routes.SIGNUP);
+                        AppRouter.go(Routes.SIGNUP);
                     }
                 }
             })
-        });
-        console.log('Login after super');
-        this.controller.isUserAuthorized().then((authorized) => {
-            if (authorized) {
-                Router.go(Routes.MESSENGER);
-            }
         });
     }
 
@@ -98,14 +93,11 @@ export class Login extends Component<LoginProperties> {
     }
 
     onComponentDidRender(): void {
-        const cardBody = this.element.querySelector('.card__body');
-        if (cardBody) {
-            cardBody.appendChild(this.properties.form.element);
-        }
-        const cardFooter = this.element.querySelector('.card__footer');
-        if (cardFooter) {
-            cardFooter.appendChild(this.properties.needAccount.element);
-        }
+        const { header, form, needAccount } = this.properties;
+        new QuerySelectAppender(this.element)
+            .queryAndAppend('.card__header', header.element)
+            .queryAndAppend('.card__body', form.element)
+            .queryAndAppend('.card__footer', needAccount.element);
     }
 
     private get valid(): boolean {
@@ -118,11 +110,12 @@ export class Login extends Component<LoginProperties> {
                 .signIn(this.properties.form.value as SignInRequest)
                 .then((ok) => {
                     if (ok) {
-                        console.log('Redirect to chats');
+                        AppRouter.go(Routes.MESSENGER);
                     }
                 })
                 .catch((error) => {
-                    console.log('Show error notification', error);
+                    // todo [sitnik] notification
+                    void error;
                 });
         }
     }

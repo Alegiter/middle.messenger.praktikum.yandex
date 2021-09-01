@@ -1,5 +1,4 @@
 import template from './change.template';
-import '../../../markup/partials/header/header.partial';
 import { ProfilePasswordChangeTemplate } from './change.template.type';
 import Component, { ComponentProperties } from '../../../core/components/component';
 import Form from '../../../core/components/form/form';
@@ -8,14 +7,22 @@ import RequireValidator from '../../../core/utils/validators/required-validator'
 import Input from '../../../core/components/input/input';
 import Button from '../../../core/components/button/button';
 import { Handlebars } from '../../../core/utils/handlebars';
+import Header from '../../../core/components/header/header';
+import { AppRouter } from '../../../core/utils/routing/router';
+import { Routes } from '../../../core/utils/routing/routes';
+import { QuerySelectAppender } from '../../../core/utils/query-select-appender';
+import { ProfilePasswordChangeController } from './change.controller';
+import { ValidationError } from '../../../core/utils/errors/validation-error';
 
 type ProfilePasswordChangeProperties = ComponentProperties &
     ProfilePasswordChangeTemplate;
 
 export class ProfilePasswordChange extends Component<ProfilePasswordChangeProperties> {
+    private readonly controller = new ProfilePasswordChangeController();
+
     constructor() {
         super('div', {
-            header: {
+            header: new Header({
                 stick: {
                     top: true
                 },
@@ -24,18 +31,16 @@ export class ProfilePasswordChange extends Component<ProfilePasswordChangeProper
                     value: 'Смена пароля'
                 },
                 back: {
-                    href: '../../profile.html'
+                    click: () => {
+                        AppRouter.go(Routes.SETTINGS);
+                    }
                 }
-            },
+            }),
             form: new Form({
                 events: {
                     submit: (event) => {
                         event.preventDefault();
-                        if (this.properties.form.valid) {
-                            // eslint-disable-next-line no-console
-                            console.log(this.properties.form.value);
-                            // Router.navigate('chats.html');
-                        }
+                        this.save();
                     }
                 },
                 items: [
@@ -63,6 +68,7 @@ export class ProfilePasswordChange extends Component<ProfilePasswordChangeProper
                                 html: {
                                     maxLength: 50,
                                     required: true,
+                                    type: 'password',
                                     name: item.name
                                 }
                             })
@@ -79,10 +85,30 @@ export class ProfilePasswordChange extends Component<ProfilePasswordChangeProper
         return Handlebars.compile(template)(this.properties);
     }
 
-    onComponentDidRender() {
-        const cardBody = this.element.querySelector('.card__body');
-        if (cardBody) {
-            cardBody.appendChild(this.properties.form.element);
+    onComponentDidRender(): void {
+        const { header, form } = this.properties;
+        new QuerySelectAppender(this.element)
+            .queryAndAppend('.card__header', header.element)
+            .queryAndAppend('.card__body', form.element);
+    }
+
+    private save() {
+        if (this.properties.form.valid) {
+            this.controller
+                .changePassword(this.properties.form.value as any)
+                .then(() => {
+                    // todo [sitnik] success notify
+                    AppRouter.go(Routes.SETTINGS);
+                })
+                .catch((err) => {
+                    if (err instanceof ValidationError) {
+                        this.properties.form
+                            .getItemByName(err.targetName)
+                            ?.setError(err.message);
+                    } else {
+                        // todo [sitnik] error notify
+                    }
+                });
         }
     }
 }

@@ -1,14 +1,23 @@
 /* eslint @typescript-eslint/no-explicit-any: "off" */
 import EventBus from '../utils/event-bus';
 
+interface ComponentEventMap extends HTMLElementEventMap {
+    markForCheck: Event;
+}
+
+export type ComponentChild = HTMLElement | string;
+export type ComponentEvents = Partial<
+    { [key in keyof ComponentEventMap]: (event: ComponentEventMap[key]) => void }
+>;
+
 export type ComponentProperties<SomeHTMLElement extends HTMLElement = HTMLDivElement> = {
     [key: string]: unknown;
     // todo [sitnik] Exclude не удалил функции, придумать что-то ещё
     // eslint-disable-next-line @typescript-eslint/ban-types
     html?: Partial<Exclude<SomeHTMLElement, () => void>>;
-    events?: Partial<
-        { [key in keyof HTMLElementEventMap]: (event: HTMLElementEventMap[key]) => void }
-    >;
+    events?: ComponentEvents;
+    children?: ComponentChild[];
+    classList?: string[];
 };
 
 export default class Component<PropertiesType extends ComponentProperties> {
@@ -25,7 +34,7 @@ export default class Component<PropertiesType extends ComponentProperties> {
     private readonly meta: { tagName: string; properties: PropertiesType };
     private lifeCycle = new EventBus();
 
-    protected constructor(tagName = 'div', properties?: PropertiesType) {
+    constructor(tagName = 'div', properties?: PropertiesType) {
         this.meta = {
             tagName,
             properties: this.makePropsProxy(properties)
@@ -67,7 +76,6 @@ export default class Component<PropertiesType extends ComponentProperties> {
         this.lifeCycle.emit(Component.EVENTS.FLOW_RENDER);
     }
 
-    // Может переопределять пользователь, необязательно трогать
     onComponentDidMount(properties: PropertiesType): void {
         void properties;
     }
@@ -90,9 +98,9 @@ export default class Component<PropertiesType extends ComponentProperties> {
         return this.meta.properties;
     }
 
-    setProps(nextProps: Partial<PropertiesType>): void {
-        Object.assign(this.properties, nextProps);
-    }
+    // setProps(nextProps: Partial<PropertiesType>): void {
+    //     Object.assign(this.properties, nextProps);
+    // }
 
     get element(): HTMLElement {
         return this._element;
@@ -136,12 +144,14 @@ export default class Component<PropertiesType extends ComponentProperties> {
             }
         }
 
+        this.setElementHtmlProperties(this.element);
+        this.setElementClassList(this.element);
         this.addEventListeners();
         this.lifeCycle.emit(Component.EVENTS.FLOW_CDR);
     }
 
-    onRender(): HTMLElement | (HTMLElement | string)[] | string | null {
-        return null;
+    onRender(): ComponentChild | ComponentChild[] | null {
+        return this.properties.children || null;
     }
 
     private componentDidRender(): void {
@@ -192,23 +202,29 @@ export default class Component<PropertiesType extends ComponentProperties> {
         // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
         const element = document.createElement(tagName);
 
-        const { html = {} } = this.properties;
-        Object.keys(html).forEach((key) => {
-            element.setAttribute(key, (<any>html)[key]);
-        });
+        this.setElementHtmlProperties(element);
+        this.setElementClassList(element);
 
         return element;
     }
 
-    create(): void {
-        console.log('Component create');
+    private setElementHtmlProperties(element: HTMLElement): void {
+        const { html = {} } = this.properties;
+        Object.keys(html).forEach((key) => {
+            element.setAttribute(key, (<any>html)[key]);
+        });
+    }
 
+    private setElementClassList(element: HTMLElement) {
+        const { classList = [] } = this.properties;
+        element.classList.add(...classList);
+    }
+
+    create(): void {
         this.lifeCycle.emit(Component.EVENTS.INIT);
     }
 
     destroy(): void {
-        console.log('Component destroy');
-
         this.lifeCycle.emit(Component.EVENTS.FLOW_DESTROY);
     }
 }
