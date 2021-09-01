@@ -6,10 +6,11 @@
         "defaults"
     ],
     "scripts": {
-        "start": "parcel serve --no-cache  -p 3000 src/static/index.html --dist-dir dist",
+        "start": "parcel serve --no-cache -p 3000 src/static/index.html --dist-dir dist",
         "prestart": "npm run prebuild",
         "build": "parcel build --no-cache --no-source-maps src/static/index.html --dist-dir dist",
         "prebuild": "npm run clear",
+        "postbuild": "cp _redirects dist/_redirects",
         "clear": "rm -rf ./dist",
         "tsc": "tsc -p ./tsconfig.app.json",
         "lint": "eslint ./src",
