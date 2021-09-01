@@ -1,5 +1,5 @@
-import { Chat } from '../chat/chat';
+import { ChatComponent } from '../chat/chat';
 
 export type ChatListTemplate = {
-    chats: Chat[];
+    chats: ChatComponent[];
 };

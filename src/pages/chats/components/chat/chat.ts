@@ -4,12 +4,26 @@ import template from './chat.template';
 import { QuerySelectAppender } from '../../../../core/utils/query-select-appender';
 import { Handlebars } from '../../../../core/utils/handlebars';
 import { getTodayRelativelyDateStringFromISOString } from '../../../../core/utils/date-utils';
+import { Chat } from '../../../../core/api/types/chat';
+import Avatar from '../../../../core/components/avatar/avatar';
+import { initialsFromUser } from '../../../../core/utils/user-untils';
 
 type ChatProperties = ComponentProperties & ChatTemplate;
 
-export class Chat extends Component<ChatProperties> {
-    constructor(properties?: ChatProperties) {
-        super('div', properties);
+export class ChatComponent extends Component<ChatProperties> {
+    constructor(private chat: Chat) {
+        super('div', {
+            id: chat.id,
+            avatar: new Avatar({
+                initials: chat.last_message
+                    ? initialsFromUser(chat.last_message.user)
+                    : undefined,
+                href: chat.avatar || chat.last_message?.user.avatar
+            }),
+            unread_count: chat.unread_count,
+            last_message: chat.last_message,
+            title: chat.title
+        });
     }
 
     onRender(): string {
@@ -27,7 +41,6 @@ export class Chat extends Component<ChatProperties> {
 
     private convertLastMessageTime(): void {
         const { last_message } = this.properties;
-        2;
         if (last_message) {
             last_message.time = getTodayRelativelyDateStringFromISOString(
                 last_message.time
@@ -45,7 +58,8 @@ export class Chat extends Component<ChatProperties> {
         }
     }
 
-    select(toggle = true): void {
+    select(toggle = true): Chat {
         this.properties.selected = toggle;
+        return this.chat;
     }
 }

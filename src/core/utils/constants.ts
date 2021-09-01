@@ -9,3 +9,4 @@ export const namesRegexp = new RegExp('^[a-zA-Zа-яА-Я-\\s]+$');
 export const phoneRegexp = new RegExp('^\\+7(\\d{3}){2}(\\d{2}){2}$');
 
 export const apiUrl = '/api/v2';
+export const apiResourcesUrl = `${apiUrl}/resources`;

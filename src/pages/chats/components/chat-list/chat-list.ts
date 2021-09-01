@@ -3,21 +3,31 @@ import Component, {
     ComponentProperties
 } from '../../../../core/components/component';
 import { ChatListTemplate } from './chat-list.template.type';
-import Button from '../../../../core/components/button/button';
-import Icon from '../../../../core/components/icon/icon';
+import { Chat } from '../../../../core/api/types/chat';
 
 type ChatListProperties = ComponentProperties & ChatListTemplate;
 
 export class ChatList extends Component<ChatListProperties> {
-    private selectedChatId: number | null = null;
-
-    constructor(properties?: ChatListProperties) {
-        super('div', properties);
-    }
-
-    onComponentDidMount(): void {
-        this.element.classList.add('chat-list');
-        this.manageChatSelecting();
+    constructor(options: { onSelect: (chat: Chat) => void }) {
+        super('div', {
+            chats: [],
+            classList: ['chat-list'],
+            events: {
+                click: (event) => {
+                    const { chats } = this.properties;
+                    chats.forEach((chat) => {
+                        chat.select(false);
+                    });
+                    const selectedChat = chats.find(
+                        (chat) =>
+                            chat.properties.id.toString() ===
+                            (<HTMLElement>event.target).id
+                    )!;
+                    const chat = selectedChat.select();
+                    options.onSelect(chat);
+                }
+            }
+        });
     }
 
     onRender(): ComponentChild[] {
@@ -29,17 +39,5 @@ export class ChatList extends Component<ChatListProperties> {
         }
 
         return children;
-    }
-
-    private manageChatSelecting() {
-        this.element.addEventListener('click', (event) => {
-            this.properties.chats.forEach((chat) => {
-                chat.select(false);
-            });
-            const selectedChat = this.properties.chats.find(
-                (chat) => chat.properties.id.toString() === (<HTMLElement>event.target).id
-            );
-            selectedChat?.select();
-        });
     }
 }

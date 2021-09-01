@@ -1,10 +1,12 @@
 @import '../chats/components/chat/chat.pcss';
 @import '../chats/components/chat-list/chat-list.pcss';
+@import './components/messenger/messenger.pcss';
 
 .chats {
     @extend .flex;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 
     &__sider {
         flex: 1 1 30%;
@@ -21,5 +23,7 @@
 
     &__messenger {
         flex: 1 1 70%;
+        background-color: #fafafa;
+        position: relative;
     }
 }

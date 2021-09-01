@@ -8,7 +8,7 @@ import Input from '../../../core/components/input/input';
 import Button from '../../../core/components/button/button';
 import { Handlebars } from '../../../core/utils/handlebars';
 import Header from '../../../core/components/header/header';
-import { Router } from '../../../core/utils/routing/router';
+import { AppRouter } from '../../../core/utils/routing/router';
 import { Routes } from '../../../core/utils/routing/routes';
 import { QuerySelectAppender } from '../../../core/utils/query-select-appender';
 import { ProfilePasswordChangeController } from './change.controller';
@@ -32,7 +32,7 @@ export class ProfilePasswordChange extends Component<ProfilePasswordChangeProper
                 },
                 back: {
                     click: () => {
-                        Router.go(Routes.SETTINGS);
+                        AppRouter.go(Routes.SETTINGS);
                     }
                 }
             }),
@@ -98,7 +98,7 @@ export class ProfilePasswordChange extends Component<ProfilePasswordChangeProper
                 .changePassword(this.properties.form.value as any)
                 .then(() => {
                     // todo [sitnik] success notify
-                    Router.go(Routes.SETTINGS);
+                    AppRouter.go(Routes.SETTINGS);
                 })
                 .catch((err) => {
                     if (err instanceof ValidationError) {

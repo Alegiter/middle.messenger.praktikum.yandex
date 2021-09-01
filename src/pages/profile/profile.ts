@@ -8,14 +8,14 @@ import Form from '../../core/components/form/form';
 import { ProfileController } from './profile.controller';
 import { QuerySelectAppender } from '../../core/utils/query-select-appender';
 import Button from '../../core/components/button/button';
-import { Router } from '../../core/utils/routing/router';
+import { AppRouter } from '../../core/utils/routing/router';
 import { Routes } from '../../core/utils/routing/routes';
 import Header from '../../core/components/header/header';
 import Avatar from '../../core/components/avatar/avatar';
 import EditableAvatar from './components/editable-avatar/editable-avatar';
-import { initialsFromUser } from '../../core/utils/naming-untils';
+import { initialsFromUser } from '../../core/utils/user-untils';
 import { User } from '../../core/api/types/user';
-import { apiUrl } from '../../core/utils/constants';
+import { apiResourcesUrl } from '../../core/utils/constants';
 
 type ProfileProperties = ComponentProperties & ProfileTemplate;
 
@@ -30,7 +30,7 @@ export class Profile extends Component<ProfileProperties> {
                 },
                 back: {
                     click: () => {
-                        Router.go(Routes.MESSENGER);
+                        AppRouter.go(Routes.MESSENGER);
                     }
                 },
                 title: {
@@ -97,7 +97,7 @@ export class Profile extends Component<ProfileProperties> {
                 text: 'Изменить данные',
                 events: {
                     click: () => {
-                        Router.go(Routes.SETTINGS_EDIT);
+                        AppRouter.go(Routes.SETTINGS_EDIT);
                     }
                 }
             }),
@@ -105,7 +105,7 @@ export class Profile extends Component<ProfileProperties> {
                 text: 'Изменить пароль',
                 events: {
                     click: () => {
-                        Router.go(Routes.SETTINGS_PASSWORD_CHANGE);
+                        AppRouter.go(Routes.SETTINGS_PASSWORD_CHANGE);
                     }
                 }
             })
@@ -156,6 +156,6 @@ export class Profile extends Component<ProfileProperties> {
     }
 
     setUserAvatar(user: User): void {
-        this.properties.profileImage.properties.avatar.properties.href = `${apiUrl}/resources${user.avatar}`;
+        this.properties.profileImage.properties.avatar.properties.href = `${apiResourcesUrl}/${user.avatar}`;
     }
 }

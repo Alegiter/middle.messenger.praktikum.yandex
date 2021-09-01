@@ -3,7 +3,7 @@ import Component from '../../components/component';
 import { SafeAny, Type } from '../types';
 import { Routes } from './routes';
 
-class _Router {
+export class Router {
     private readonly routes: Route[] = [];
     private activatedRoute: Route | null = null;
 
@@ -48,10 +48,6 @@ class _Router {
         this.history.pushState({}, '', path);
         this.onNavigate(path);
     }
-
-    back(): void {
-        this.history.back();
-    }
 }
 
-export const Router = new _Router();
+export const AppRouter = new Router();

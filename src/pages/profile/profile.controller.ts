@@ -1,7 +1,7 @@
 import { AuthApi } from '../../core/api/services/auth.api';
 import { UserApi } from '../../core/api/services/user.api';
 import { User } from '../../core/api/types/user';
-import { Router } from '../../core/utils/routing/router';
+import { AppRouter } from '../../core/utils/routing/router';
 import { Routes } from '../../core/utils/routing/routes';
 
 export class ProfileController {
@@ -14,7 +14,7 @@ export class ProfileController {
 
     logout(): void {
         this.authApi.logout().then(() => {
-            Router.go(Routes.LOGIN);
+            AppRouter.go(Routes.LOGIN);
         });
     }
 

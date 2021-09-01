@@ -9,7 +9,7 @@ import RequireValidator from '../../core/utils/validators/required-validator';
 import PatternValidator from '../../core/utils/validators/pattern-validator';
 import template from './login.template';
 import { loginRegexp } from '../../core/utils/constants';
-import { Router } from '../../core/utils/routing/router';
+import { AppRouter } from '../../core/utils/routing/router';
 import { Routes } from '../../core/utils/routing/routes';
 import { LoginController } from './login.controller';
 import { SignInRequest } from '../../core/api/types/sign-in-request';
@@ -81,7 +81,7 @@ export class Login extends Component<LoginProperties> {
                 type: 'link',
                 events: {
                     click: () => {
-                        Router.go(Routes.SIGNUP);
+                        AppRouter.go(Routes.SIGNUP);
                     }
                 }
             })
@@ -110,7 +110,7 @@ export class Login extends Component<LoginProperties> {
                 .signIn(this.properties.form.value as SignInRequest)
                 .then((ok) => {
                     if (ok) {
-                        Router.go(Routes.MESSENGER);
+                        AppRouter.go(Routes.MESSENGER);
                     }
                 })
                 .catch((error) => {

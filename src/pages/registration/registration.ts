@@ -11,7 +11,7 @@ import { loginRegexp, namesRegexp, phoneRegexp } from '../../core/utils/constant
 import Input from '../../core/components/input/input';
 import MailValidator from '../../core/utils/validators/mail-validator';
 import { Routes } from '../../core/utils/routing/routes';
-import { Router } from '../../core/utils/routing/router';
+import { AppRouter } from '../../core/utils/routing/router';
 import { RegistrationController } from './registration.controller';
 import { SignUpRequest } from '../../core/api/types/sign-up-request';
 import Header from '../../core/components/header/header';
@@ -105,7 +105,7 @@ export class Registration extends Component<RegistrationProperties> {
                 text: 'У меня есть аккаунт',
                 type: 'link',
                 events: {
-                    click: () => Router.go(Routes.LOGIN)
+                    click: () => AppRouter.go(Routes.LOGIN)
                 }
             })
         });
@@ -133,7 +133,7 @@ export class Registration extends Component<RegistrationProperties> {
                 .signUp(this.properties.form.value as SignUpRequest)
                 .then((ok) => {
                     if (ok) {
-                        Router.go(Routes.LOGIN);
+                        AppRouter.go(Routes.LOGIN);
                     }
                 })
                 .catch((error) => {

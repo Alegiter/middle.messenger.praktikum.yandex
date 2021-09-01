@@ -37,3 +37,9 @@ https://elated-davinci-b5b9aa.netlify.app/
 
 Typescript types checking - `npm run tsc` <br>
 Linting (include Eslint, Prettier, Stylelint) - `npm run linting`  <br>
+
+### Testing
+
+Run `npm run test`<br>
+It will run typechecking of test files and serve test suite<br> 
+Than open browser at `localhost:3001`<br>

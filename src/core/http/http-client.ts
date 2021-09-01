@@ -50,7 +50,7 @@ export default class HttpClient {
                 xhr.send(body);
             } else {
                 xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.send(JSON.stringify(body));
+                xhr.send(body ? JSON.stringify(body) : null);
             }
         });
     }

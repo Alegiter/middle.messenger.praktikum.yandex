@@ -71,6 +71,8 @@
                     "last_message"
                 ]
             }
-        ]
+        ],
+        "no-plusplus": "off",
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.spec.ts"]}]
     }
 }

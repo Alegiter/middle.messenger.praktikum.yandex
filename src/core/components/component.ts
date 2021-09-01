@@ -34,7 +34,7 @@ export default class Component<PropertiesType extends ComponentProperties> {
     private readonly meta: { tagName: string; properties: PropertiesType };
     private lifeCycle = new EventBus();
 
-    protected constructor(tagName = 'div', properties?: PropertiesType) {
+    constructor(tagName = 'div', properties?: PropertiesType) {
         this.meta = {
             tagName,
             properties: this.makePropsProxy(properties)

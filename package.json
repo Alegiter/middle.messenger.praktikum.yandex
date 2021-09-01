@@ -11,25 +11,31 @@
         "build": "parcel build --no-cache --no-source-maps src/static/index.html --dist-dir dist",
         "prebuild": "npm run clear",
         "clear": "rm -rf ./dist",
-        "tsc": "tsc",
+        "tsc": "tsc -p ./tsconfig.app.json",
         "lint": "eslint ./src",
         "prettier": "prettier --check ./src",
         "stylelint": "stylelint ./src",
         "linting": "npm run prettier && npm run lint && npm run stylelint",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "parcel serve --no-cache -p 3001 test/index.html --dist-dir dist-test",
+        "pretest":"tsc -p ./tsconfig.test.json"
     },
     "dependencies": {
-        "handlebars": "^4.7.7"
+        "handlebars": "^4.7.7",
+        "mocha-jsdom": "^2.0.0"
     },
     "devDependencies": {
         "@parcel/validator-typescript": "^2.0.0-alpha.3",
+        "@types/chai": "^4.2.21",
+        "@types/mocha": "^9.0.0",
         "@typescript-eslint/eslint-plugin": "^4.28.5",
         "@typescript-eslint/parser": "^4.28.5",
+        "chai": "^4.3.4",
         "eslint": "^7.31.0",
         "eslint-config-airbnb-base": "^14.2.1",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-import": "^2.23.4",
         "eslint-plugin-prettier": "^3.4.0",
+        "mocha": "^9.1.1",
         "parcel": "^2.0.0-beta.3.1",
         "postcss": "^8.3.6",
         "postcss-import": "^14.0.2",

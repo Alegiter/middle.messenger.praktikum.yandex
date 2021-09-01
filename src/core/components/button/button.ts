@@ -6,6 +6,7 @@ type ButtonProperties = ComponentProperties<HTMLButtonElement> & {
     type?: 'button' | 'link';
     rounded?: boolean;
     ghost?: boolean;
+    block?: boolean;
 };
 
 export default class Button extends Component<ButtonProperties> {
@@ -32,8 +33,9 @@ export default class Button extends Component<ButtonProperties> {
 
     private addStyles() {
         this.element.classList.add('button');
+        this.element.classList.add('button_block');
 
-        const { type, rounded, ghost } = this.properties;
+        const { type, rounded, ghost, block } = this.properties;
         if (type === 'link') {
             this.element.classList.add('button_link');
         }
@@ -42,6 +44,9 @@ export default class Button extends Component<ButtonProperties> {
         }
         if (ghost) {
             this.element.classList.add('button_ghost');
+        }
+        if (block === false) {
+            this.element.classList.remove('button_block');
         }
     }
 }
