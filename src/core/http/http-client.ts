@@ -40,7 +40,7 @@ export default class HttpClient {
                     case 200:
                         return resolve(xhr.response);
                     default:
-                        return reject(new ApiResponseError(xhr.response));
+                        return reject(new ApiResponseError(xhr));
                 }
             };
 

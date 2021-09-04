@@ -28,7 +28,7 @@ const authApi = new AuthApi();
 authApi
     .getUser()
     .then(() => {
-        if (AppRouter.currentRoutePath === Routes.SIGNUP) {
+        if (AppRouter.currentRoutePath === Routes.LOGIN) {
             AppRouter.go(Routes.MESSENGER);
         }
     })
