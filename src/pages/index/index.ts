@@ -25,7 +25,4 @@ AppRouter.withRoute(Routes.LOGIN, Login)
 
 // Simple check for unauthorized user
 const authApi = new AuthApi();
-authApi
-    .getUser()
-    .then(() => AppRouter.go(Routes.MESSENGER))
-    .catch(() => AppRouter.go(Routes.LOGIN));
+authApi.getUser().catch(() => AppRouter.go(Routes.LOGIN));

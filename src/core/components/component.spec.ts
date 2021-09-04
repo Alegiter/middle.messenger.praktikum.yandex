@@ -38,7 +38,7 @@ describe('Component testing', () => {
         });
         const { children } = div.element;
         assert(children.length === 1, 'Child did not add');
-        assert(children.item(0)!.tagName === 'SPAN', 'Child did not add');
+        assert(!!children.item(0), 'Child did not add');
     });
 
     it('should add css classes to host element', () => {

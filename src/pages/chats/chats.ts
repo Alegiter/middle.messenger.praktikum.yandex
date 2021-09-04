@@ -21,15 +21,18 @@ export class Chats extends Component<ChatsProperties> {
         super('div', {
             chatList: new ChatList({
                 onSelect: (chat) => {
-                    this.controller.getUserId().then((userId) => {
-                        this.controller.getChatToken(chat.id).then((token) => {
+                    this.controller
+                        .getUserId()
+                        .then((userId) =>
+                            Promise.all([userId, this.controller.getChatToken(chat.id)])
+                        )
+                        .then((data) => {
                             this.properties.messenger = new Messenger({
                                 chat,
-                                chatToken: token,
-                                userId
+                                chatToken: data[1],
+                                userId: data[0]
                             });
                         });
-                    });
                 }
             })
         });
@@ -79,29 +82,6 @@ export class Chats extends Component<ChatsProperties> {
             this.properties.chatList.properties.chats = chats.map(
                 (chat) => new ChatComponent(chat)
             );
-
-            // const test = [];
-            // for (let i = 0; i < 100; i++) {
-            //     test.push(
-            //         new Chat({
-            //             avatar: new Avatar({
-            //                 initials: 'ВС'
-            //             }),
-            //             title: 'Владимир Ситник',
-            //             unread_count: 1,
-            //             last_message: {
-            //                 time: '2020-01-02T14:22:22.000Z',
-            //                 content: 'Текс длинный, очень, при очень длинный, сильно!'
-            //             },
-            //             id: i
-            //         })
-            //     );
-            // }
-            //
-            // this.properties.chatList.properties.chats = [
-            //     ...this.properties.chatList.properties.chats,
-            //     ...test
-            // ];
         });
     }
 }

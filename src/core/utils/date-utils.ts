@@ -10,9 +10,9 @@ export function getTodayRelativelyDateStringFromISOString(isoString: string): st
 
         if (date.getTime() < today().getTime()) {
             return date.toLocaleDateString();
-        } else {
-            return date.toLocaleTimeString();
         }
+
+        return date.toLocaleTimeString();
     } catch (e) {
         return isoString;
     }

@@ -30,7 +30,6 @@ export class SelectableUser extends Component<SelectableUserProperties> {
 
     onRender(): string {
         const { user } = this.properties;
-        console.log('onRender user', user);
         return Handlebars.compile(template)(user);
     }
 

@@ -9,60 +9,18 @@ export class AuthApi {
     private readonly http = new HttpClient(`${apiUrl}/auth`);
 
     getUser(): Promise<User> {
-        return this.http.get('/user').then((xhr) => {
-            switch (xhr.status) {
-                case 200:
-                    return Promise.resolve(xhr.response);
-                case 400:
-                case 401:
-                case 500:
-                default:
-                    console.log('AuthApi.getUser error', xhr.response);
-                    return Promise.reject(xhr.response);
-            }
-        });
+        return this.http.get('/user');
     }
 
     signIn(data: SignInRequest): Promise<void> {
-        return this.http.post('/signin', { body: data }).then((xhr) => {
-            switch (xhr.status) {
-                case 200:
-                    return Promise.resolve();
-                case 404:
-                    return Promise.reject(new Error('Пользователь не найден'));
-                case 400:
-                case 401:
-                case 500:
-                default:
-                    console.log('AuthApi.signIn error', xhr.response);
-                    return Promise.reject(xhr.response);
-            }
-        });
+        return this.http.post<void>('/signin', { body: data });
     }
 
     signUp(data: SignUpRequest): Promise<SignUpResponse> {
-        return this.http.post('/signup', { body: data }).then((xhr) => {
-            switch (xhr.status) {
-                case 200:
-                    return Promise.resolve(xhr.response);
-                case 400:
-                case 401:
-                case 500:
-                default:
-                    console.log('AuthApi.signUp error', xhr.response);
-                    return Promise.reject(xhr.response);
-            }
-        });
+        return this.http.post('/signup', { body: data });
     }
 
     logout(): Promise<void> {
-        return this.http.post('/logout').then((xhr) => {
-            switch (xhr.status) {
-                case 200:
-                    return Promise.resolve();
-                default:
-                    return Promise.reject(xhr.response);
-            }
-        });
+        return this.http.post('/logout');
     }
 }

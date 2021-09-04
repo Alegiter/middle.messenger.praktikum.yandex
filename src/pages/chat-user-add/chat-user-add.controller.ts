@@ -5,8 +5,6 @@ export class ChatUserAddController {
     private userApi = new UserApi();
 
     searchUserByLogin(login: string): Promise<User[]> {
-        return this.userApi.getUsersByLogin(login).catch(() => {
-            return [];
-        });
+        return this.userApi.getUsersByLogin(login).catch(() => []);
     }
 }

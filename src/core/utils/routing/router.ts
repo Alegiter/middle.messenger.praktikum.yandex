@@ -1,6 +1,6 @@
 import Route from './route';
 import Component from '../../components/component';
-import { SafeAny, Type } from '../types';
+import { Type } from '../types';
 import { Routes } from './routes';
 
 export class Router {
@@ -11,7 +11,7 @@ export class Router {
 
     constructor(private routerOutlet?: string) {}
 
-    withRoute(path: Routes, componentClass: Type<Component<SafeAny>>): this {
+    withRoute(path: Routes, componentClass: Type<Component<never>>): this {
         this.routes.push(
             new Route({
                 path,

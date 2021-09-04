@@ -11,7 +11,10 @@ import Header from '../../../core/components/header/header';
 import { AppRouter } from '../../../core/utils/routing/router';
 import { Routes } from '../../../core/utils/routing/routes';
 import { QuerySelectAppender } from '../../../core/utils/query-select-appender';
-import { ProfilePasswordChangeController } from './change.controller';
+import {
+    ProfilePasswordChangeController,
+    UserUpdatePasswordData
+} from './change.controller';
 import { ValidationError } from '../../../core/utils/errors/validation-error';
 
 type ProfilePasswordChangeProperties = ComponentProperties &
@@ -95,7 +98,7 @@ export class ProfilePasswordChange extends Component<ProfilePasswordChangeProper
     private save() {
         if (this.properties.form.valid) {
             this.controller
-                .changePassword(this.properties.form.value as any)
+                .changePassword(this.properties.form.value as UserUpdatePasswordData)
                 .then(() => {
                     // todo [sitnik] success notify
                     AppRouter.go(Routes.SETTINGS);

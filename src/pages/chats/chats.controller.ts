@@ -13,9 +13,9 @@ export class ChatsController {
     }
 
     getChatToken(chatId: number): Promise<string> {
-        return this.chatsApi.token(chatId).then((response: ChatTokenResponse) => {
-            return Promise.resolve(response.token);
-        });
+        return this.chatsApi
+            .token(chatId)
+            .then((response: ChatTokenResponse) => Promise.resolve(response.token));
     }
 
     getUserId(): Promise<number> {

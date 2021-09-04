@@ -18,6 +18,7 @@ export class ChatList extends Component<ChatListProperties> {
                     chats.forEach((chat) => {
                         chat.select(false);
                     });
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     const selectedChat = chats.find(
                         (chat) =>
                             chat.properties.id.toString() ===

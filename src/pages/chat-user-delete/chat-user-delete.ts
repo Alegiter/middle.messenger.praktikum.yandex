@@ -93,6 +93,7 @@ export class ChatUserDelete extends Component<ChatUserProperties> {
     private deleteCheckUsersAndBackToMessenger() {
         const { userList } = this.properties;
         this.controller.deleteUsersFromChat(userList.getSelected());
+        userList.clearList();
         AppRouter.go(Routes.MESSENGER);
     }
 

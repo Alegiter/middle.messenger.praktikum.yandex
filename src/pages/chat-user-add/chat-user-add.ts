@@ -77,12 +77,10 @@ export class ChatUserAdd extends Component<UserListProperties> {
         const { search, userList } = this.properties;
         this.controller.searchUserByLogin(search.value[0]).then((users) => {
             if (users.length === 0) {
-                console.log('no users');
                 userList.clearList();
                 return;
             }
 
-            console.log('render users');
             userList.setUsers(users);
         });
     }

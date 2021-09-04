@@ -10,7 +10,6 @@
         "prestart": "npm run prebuild",
         "build": "parcel build --no-cache --no-source-maps src/static/index.html --dist-dir dist",
         "prebuild": "npm run clear",
-        "postbuild": "cp _redirects dist/_redirects",
         "clear": "rm -rf ./dist",
         "tsc": "tsc -p ./tsconfig.app.json",
         "lint": "eslint ./src",
@@ -18,7 +17,7 @@
         "stylelint": "stylelint ./src",
         "linting": "npm run prettier && npm run lint && npm run stylelint",
         "test": "parcel serve --no-cache -p 3001 test/index.html --dist-dir dist-test",
-        "pretest":"tsc -p ./tsconfig.test.json"
+        "pretest": "tsc -p ./tsconfig.test.json"
     },
     "dependencies": {
         "handlebars": "^4.7.7",
@@ -45,7 +44,8 @@
         "prettier": "2.3.2",
         "stylelint": "^13.13.1",
         "stylelint-config-standard": "^22.0.0",
-        "typescript": "^4.3.5"
+        "typescript": "^4.3.5",
+        "xhr-mock": "^2.5.1"
     },
     "repository": {
         "type": "git",

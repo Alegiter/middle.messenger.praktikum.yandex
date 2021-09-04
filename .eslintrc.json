@@ -68,7 +68,8 @@
                     "second_name",
                     "display_name",
                     "unread_count",
-                    "last_message"
+                    "last_message",
+                    "user_id"
                 ]
             }
         ],

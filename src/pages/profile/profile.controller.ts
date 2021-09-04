@@ -22,7 +22,7 @@ export class ProfileController {
         if (input.files) {
             const file = input.files[0];
             const form = new FormData();
-            form.append('avatar', file, 'avatar.png');
+            form.append('avatar', file, `avatar.${file.type.split('/')[1]}`);
             return this.userApi.updateAvatar(form);
         }
         return Promise.reject(new Error('Файл не выбран'));

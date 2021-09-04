@@ -14,10 +14,10 @@ class Storage {
             }
             const dive = result[key];
             if (dive) {
-                result = dive as any;
+                result = dive as never;
             } else {
                 result[key] = {};
-                result = result[key] as any;
+                result = result[key] as never;
             }
         });
 
@@ -35,7 +35,7 @@ class Storage {
             if (i === keys.length - 1) {
                 return;
             }
-            result = result[key] as any;
+            result = result[key] as never;
         });
 
         return (result[keys[keys.length - 1]] as T) || null;
@@ -43,10 +43,3 @@ class Storage {
 }
 
 export const AppStorage = new Storage();
-
-const test = new Storage();
-test.store('a.b', 'a.b');
-test.store('q.w.e', 'q.w.e');
-console.log(test.storage);
-console.log(test.query('q.w.e'));
-console.log(test.query('abr'));

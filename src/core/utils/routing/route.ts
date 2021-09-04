@@ -3,11 +3,11 @@ import { Type } from '../types';
 import { renderer2 } from '../renderer';
 
 export default class Route {
-    private component: Component<any> | null = null;
+    private component: Component<never> | null = null;
     constructor(
         private readonly options: {
             path: string;
-            ComponentClass: Type<Component<any>>;
+            ComponentClass: Type<Component<never>>;
             routerOutlet?: string;
         }
     ) {}
@@ -20,6 +20,8 @@ export default class Route {
                 query: this.options.routerOutlet,
                 deleteElement: true
             });
+
+            this.component = null;
         }
     }
 

@@ -152,7 +152,6 @@ export class ProfileEdit extends Component<ProfileEditProperties> {
                 })
                 .catch(() => {
                     // todo [sitnik] error handle
-                    console.error('Не сохранилось');
                 });
         }
     }
