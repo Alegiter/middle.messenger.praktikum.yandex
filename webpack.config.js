@@ -15,6 +15,9 @@ module.exports = {
         port: 3000,
         client: {
             overlay: false
+        },
+        headers: {
+            'Access-Control-Allow-Origin': '*'
         }
     },
     module: {
