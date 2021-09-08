@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "ESNEXT",
         "module": "ESNext",
-        "noEmit": true,
+        "noEmit": false,
         "strict": true,
         "noImplicitAny": true,
         "strictNullChecks": true,
@@ -16,6 +16,7 @@
         "moduleResolution": "node",
         "esModuleInterop": false,
         "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "sourceMap": true
     }
 }

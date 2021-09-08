@@ -30,7 +30,6 @@ export default class Route {
     }
 
     render(): void {
-        console.log('Route render');
         if (!this.component) {
             this.component = new this.options.ComponentClass();
         }

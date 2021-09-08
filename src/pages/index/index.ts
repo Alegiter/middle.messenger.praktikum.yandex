@@ -11,6 +11,7 @@ import { ChatUserAdd } from '../chat-user-add/chat-user-add';
 import '../../core/storage/storage';
 import { ChatCreate } from '../chat-create/chat-create';
 import { ChatUserDelete } from '../chat-user-delete/chat-user-delete';
+import './index.pcss';
 
 AppRouter.withRoute(Routes.LOGIN, Login)
     .withRoute(Routes.SIGNUP, Registration)
