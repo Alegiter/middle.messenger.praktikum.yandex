@@ -1,7 +1,7 @@
-import { HeaderPartial } from '../../../markup/partials/header/header.partial.type';
 import Form from '../../../core/components/form/form';
+import Header from '../../../core/components/header/header';
 
 export type ProfilePasswordChangeTemplate = {
-    header: HeaderPartial;
+    header: Header;
     form: Form;
 };

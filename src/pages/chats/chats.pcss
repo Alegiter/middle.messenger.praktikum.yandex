@@ -1,15 +1,29 @@
-@import '../../styles/base.pcss';
-@import '../../markup/partials/header/header.partial.pcss';
-@import '../../markup/partials/avatar/avatar.partial.pcss';
-@import '../../markup/partials/chat/chat.partial.pcss';
+@import '../chats/components/chat/chat.pcss';
+@import '../chats/components/chat-list/chat-list.pcss';
+@import './components/messenger/messenger.pcss';
 
 .chats {
-    display: flex;
-}
+    @extend .flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 
-.chat-list {
-    &-wrapper {
-        height: 100vh;
-        overflow: auto;
+    &__sider {
+        flex: 1 1 30%;
+        position: relative;
+    }
+
+    &__create-button {
+        width: 56px;
+        height: 56px;
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+    }
+
+    &__messenger {
+        flex: 1 1 70%;
+        background-color: #fafafa;
+        position: relative;
     }
 }

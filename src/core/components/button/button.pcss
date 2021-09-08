@@ -1,5 +1,4 @@
 .button {
-    min-width: 100%;
     cursor: pointer;
     color: white;
     background-color: var(--primary-color);
@@ -14,6 +13,16 @@
     &_ghost {
         background-color: transparent;
         color: black;
+    }
+
+    &_link {
+        background-color: transparent;
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+
+    &_block {
+        width: 100%;
     }
 }
 

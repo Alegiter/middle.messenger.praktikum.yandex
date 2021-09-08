@@ -1,10 +1,13 @@
-import { HeaderPartial } from '../../markup/partials/header/header.partial.type';
-import { ProfileImagePartial } from './markup/partials/profile-image/profile-image.partial.type';
 import Form from '../../core/components/form/form';
+import Button from '../../core/components/button/button';
+import Header from '../../core/components/header/header';
+import EditableAvatar from './components/editable-avatar/editable-avatar';
 
 export type ProfileTemplate = {
-    header: HeaderPartial;
-    profileImage: ProfileImagePartial;
+    header: Header;
+    profileImage: EditableAvatar;
     fullName: string;
     form: Form;
+    edit: Button;
+    changePassword: Button;
 };

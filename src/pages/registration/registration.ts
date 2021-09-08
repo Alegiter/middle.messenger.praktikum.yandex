@@ -1,6 +1,4 @@
 import template from './registration.template';
-import '../../markup/partials/header/header.partial';
-import { renderer2 } from '../../core/utils/renderer';
 import { RegistrationTemplate } from './registration.template.type';
 import Component, { ComponentProperties } from '../../core/components/component';
 import Form from '../../core/components/form/form';
@@ -12,28 +10,31 @@ import PatternValidator from '../../core/utils/validators/pattern-validator';
 import { loginRegexp, namesRegexp, phoneRegexp } from '../../core/utils/constants';
 import Input from '../../core/components/input/input';
 import MailValidator from '../../core/utils/validators/mail-validator';
+import { Routes } from '../../core/utils/routing/routes';
+import { AppRouter } from '../../core/utils/routing/router';
+import { RegistrationController } from './registration.controller';
+import { SignUpRequest } from '../../core/api/types/sign-up-request';
+import Header from '../../core/components/header/header';
+import { QuerySelectAppender } from '../../core/utils/query-select-appender';
 
 type RegistrationProperties = ComponentProperties & RegistrationTemplate;
 
-class Registration extends Component<RegistrationProperties> {
+export class Registration extends Component<RegistrationProperties> {
+    private readonly controller = new RegistrationController();
+
     constructor() {
         super('div', {
-            header: {
+            header: new Header({
                 title: {
                     centered: true,
                     value: 'Регистрация'
                 }
-            },
-            // todo [sitnik] Можно вынести в отдльный компонет для переиспользования
+            }),
             form: new Form({
                 events: {
                     submit: (event) => {
                         event.preventDefault();
-                        if (this.valid) {
-                            // eslint-disable-next-line no-console
-                            console.log(this.properties.form.value);
-                            // Router.navigate('chats.html');
-                        }
+                        this.signUp();
                     }
                 },
                 items: [
@@ -70,7 +71,7 @@ class Registration extends Component<RegistrationProperties> {
                     },
                     {
                         title: 'Пароль (ещё раз)',
-                        name: 'password',
+                        name: 'password_again',
                         type: 'password',
                         autocomplete: 'new-password',
                         validators: []
@@ -100,10 +101,13 @@ class Registration extends Component<RegistrationProperties> {
                     text: 'Зарегистрироваться'
                 })
             }),
-            hasAccount: {
-                title: 'У меня есть аккаунт',
-                href: 'login.html'
-            }
+            hasAccount: new Button({
+                text: 'У меня есть аккаунт',
+                type: 'link',
+                events: {
+                    click: () => AppRouter.go(Routes.LOGIN)
+                }
+            })
         });
     }
 
@@ -111,16 +115,31 @@ class Registration extends Component<RegistrationProperties> {
         return Handlebars.compile(template)(this.properties);
     }
 
-    onComponentDidRender() {
-        const cardBody = this.element.querySelector('.card__body');
-        if (cardBody) {
-            cardBody.appendChild(this.properties.form.element);
-        }
+    onComponentDidRender(): void {
+        const { header, form, hasAccount } = this.properties;
+        new QuerySelectAppender(this.element)
+            .queryAndAppend('.card__header', header.element)
+            .queryAndAppend('.card__body', form.element)
+            .queryAndAppend('.card__footer', hasAccount.element);
     }
 
     private get valid(): boolean {
         return this.properties.form.valid;
     }
-}
 
-renderer2(new Registration().element);
+    private signUp(): void {
+        if (this.valid) {
+            this.controller
+                .signUp(this.properties.form.value as SignUpRequest)
+                .then((ok) => {
+                    if (ok) {
+                        AppRouter.go(Routes.LOGIN);
+                    }
+                })
+                .catch((error) => {
+                    // todo [sitnik] error notification
+                    void error;
+                });
+        }
+    }
+}

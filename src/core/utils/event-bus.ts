@@ -1,6 +1,7 @@
 /* eslint @typescript-eslint/no-explicit-any: "off" */
 type Callback = (...args: any[]) => void;
 
+// todo [sitnik] подумать как можно типизировать event, чтобы иметь проверку на уровне типизации, а не только в runtime
 export default class EventBus {
     private readonly listeners: Record<string, Callback[]> = {};
 

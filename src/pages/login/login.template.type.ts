@@ -1,9 +1,9 @@
-import { HeaderPartial } from '../../markup/partials/header/header.partial.type';
-import { LinkTemplate } from '../../core/types/link-template';
 import Form from '../../core/components/form/form';
+import Button from '../../core/components/button/button';
+import Header from '../../core/components/header/header';
 
 export type LoginTemplate = {
-    header: HeaderPartial;
+    header: Header;
     form: Form;
-    needAccount: LinkTemplate;
+    needAccount: Button;
 };

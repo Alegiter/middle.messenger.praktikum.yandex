@@ -1,14 +1,23 @@
 /* eslint @typescript-eslint/no-explicit-any: "off" */
 import EventBus from '../utils/event-bus';
 
+interface ComponentEventMap extends HTMLElementEventMap {
+    markForCheck: Event;
+}
+
+export type ComponentChild = HTMLElement | string;
+export type ComponentEvents = Partial<
+    { [key in keyof ComponentEventMap]: (event: ComponentEventMap[key]) => void }
+>;
+
 export type ComponentProperties<SomeHTMLElement extends HTMLElement = HTMLDivElement> = {
     [key: string]: unknown;
     // todo [sitnik] Exclude не удалил функции, придумать что-то ещё
     // eslint-disable-next-line @typescript-eslint/ban-types
     html?: Partial<Exclude<SomeHTMLElement, () => void>>;
-    events?: Partial<
-        { [key in keyof HTMLElementEventMap]: (event: HTMLElementEventMap[key]) => void }
-    >;
+    events?: ComponentEvents;
+    children?: ComponentChild[];
+    classList?: string[];
 };
 
 export default class Component<PropertiesType extends ComponentProperties> {
@@ -17,29 +26,34 @@ export default class Component<PropertiesType extends ComponentProperties> {
         FLOW_CDM: 'flow:component-did-mount',
         FLOW_CDU: 'flow:component-did-update',
         FLOW_RENDER: 'flow:render',
-        FLOW_CDR: 'flow:component-did-render'
+        FLOW_CDR: 'flow:component-did-render',
+        FLOW_DESTROY: 'flow:destroy'
     };
 
     private _element!: HTMLElement;
     private readonly meta: { tagName: string; properties: PropertiesType };
     private lifeCycle = new EventBus();
 
-    protected constructor(tagName = 'div', properties?: PropertiesType) {
+    constructor(tagName = 'div', properties?: PropertiesType) {
         this.meta = {
             tagName,
             properties: this.makePropsProxy(properties)
         };
 
         this.registerEvents();
-        this.init();
+        this.lifeCycle.emit(Component.EVENTS.INIT);
     }
 
     private registerEvents() {
-        // this.eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
+        this.lifeCycle.on(Component.EVENTS.INIT, this.init.bind(this));
         this.lifeCycle.on(Component.EVENTS.FLOW_CDM, this.componentDidMount.bind(this));
         this.lifeCycle.on(Component.EVENTS.FLOW_CDU, this.componentDidUpdate.bind(this));
         this.lifeCycle.on(Component.EVENTS.FLOW_RENDER, this.render.bind(this));
         this.lifeCycle.on(Component.EVENTS.FLOW_CDR, this.componentDidRender.bind(this));
+        this.lifeCycle.on(
+            Component.EVENTS.FLOW_DESTROY,
+            this.componentDestroy.bind(this)
+        );
     }
 
     private createResources(): void {
@@ -53,11 +67,11 @@ export default class Component<PropertiesType extends ComponentProperties> {
     }
 
     private componentDidMount(): void {
+        // console.log('Component did mount');
         this.onComponentDidMount(this.properties);
         this.lifeCycle.emit(Component.EVENTS.FLOW_RENDER);
     }
 
-    // Может переопределять пользователь, необязательно трогать
     onComponentDidMount(properties: PropertiesType): void {
         void properties;
     }
@@ -78,10 +92,6 @@ export default class Component<PropertiesType extends ComponentProperties> {
 
     get properties(): PropertiesType {
         return this.meta.properties;
-    }
-
-    setProps(nextProps: Partial<PropertiesType>): void {
-        Object.assign(this.properties, nextProps);
     }
 
     get element(): HTMLElement {
@@ -105,6 +115,7 @@ export default class Component<PropertiesType extends ComponentProperties> {
     }
 
     private render(): void {
+        // console.log('Component rendering');
         this.removeEventListeners();
         const block = this.onRender();
         if (block) {
@@ -121,23 +132,34 @@ export default class Component<PropertiesType extends ComponentProperties> {
                 });
             } else {
                 this._element.appendChild(block);
-                // this._element.insertAdjacentElement('beforeend', block);
             }
         }
 
+        this.setElementHtmlProperties(this.element);
+        this.setElementClassList(this.element);
         this.addEventListeners();
         this.lifeCycle.emit(Component.EVENTS.FLOW_CDR);
     }
 
-    onRender(): HTMLElement | (HTMLElement | string)[] | string | null {
-        return null;
+    onRender(): ComponentChild | ComponentChild[] | null {
+        return this.properties.children || null;
     }
 
     private componentDidRender(): void {
+        // console.log('Component did render');
         this.onComponentDidRender();
     }
 
     onComponentDidRender(): void {
+        void 0;
+    }
+
+    private componentDestroy(): void {
+        this.onComponentDestroy();
+        this.removeEventListeners();
+    }
+
+    onComponentDestroy(): void {
         void 0;
     }
 
@@ -171,19 +193,29 @@ export default class Component<PropertiesType extends ComponentProperties> {
         // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
         const element = document.createElement(tagName);
 
-        const { html = {} } = this.properties;
-        Object.keys(html).forEach((key) => {
-            element.setAttribute(key, (<any>html)[key]);
-        });
+        this.setElementHtmlProperties(element);
+        this.setElementClassList(element);
 
         return element;
     }
 
-    show(): void {
-        this.element.style.display = 'block';
+    private setElementHtmlProperties(element: HTMLElement): void {
+        const { html = {} } = this.properties;
+        Object.keys(html).forEach((key) => {
+            element.setAttribute(key, (<any>html)[key]);
+        });
     }
 
-    hide(): void {
-        this.element.style.display = 'none';
+    private setElementClassList(element: HTMLElement) {
+        const { classList = [] } = this.properties;
+        element.classList.add(...classList);
+    }
+
+    create(): void {
+        this.lifeCycle.emit(Component.EVENTS.INIT);
+    }
+
+    destroy(): void {
+        this.lifeCycle.emit(Component.EVENTS.FLOW_DESTROY);
     }
 }

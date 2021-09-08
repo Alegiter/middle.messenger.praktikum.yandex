@@ -1,5 +1,3 @@
-import '../../markup/partials/header/header.partial';
-import { renderer2 } from '../../core/utils/renderer';
 import { LoginTemplate } from './login.template.type';
 import Button from '../../core/components/button/button';
 import Component, { ComponentProperties } from '../../core/components/component';
@@ -11,28 +9,31 @@ import RequireValidator from '../../core/utils/validators/required-validator';
 import PatternValidator from '../../core/utils/validators/pattern-validator';
 import template from './login.template';
 import { loginRegexp } from '../../core/utils/constants';
-// import Router from '../../core/utils/router';
+import { AppRouter } from '../../core/utils/routing/router';
+import { Routes } from '../../core/utils/routing/routes';
+import { LoginController } from './login.controller';
+import { SignInRequest } from '../../core/api/types/sign-in-request';
+import Header from '../../core/components/header/header';
+import { QuerySelectAppender } from '../../core/utils/query-select-appender';
 
 type LoginProperties = ComponentProperties & LoginTemplate;
 
-class Login extends Component<LoginProperties> {
+export class Login extends Component<LoginProperties> {
+    private readonly controller = new LoginController();
+
     constructor() {
         super('div', {
-            header: {
+            header: new Header({
                 title: {
                     centered: true,
                     value: 'Авторизация'
                 }
-            },
+            }),
             form: new Form({
                 events: {
                     submit: (event) => {
                         event.preventDefault();
-                        if (this.valid) {
-                            // eslint-disable-next-line no-console
-                            console.log(this.properties.form.value);
-                            // Router.navigate('chats.html');
-                        }
+                        this.signIn();
                     }
                 },
                 items: [
@@ -75,10 +76,15 @@ class Login extends Component<LoginProperties> {
                     text: 'Войти'
                 })
             }),
-            needAccount: {
-                title: 'Создать аккаунт',
-                href: 'registration.html'
-            }
+            needAccount: new Button({
+                text: 'Создать аккаунт',
+                type: 'link',
+                events: {
+                    click: () => {
+                        AppRouter.go(Routes.SIGNUP);
+                    }
+                }
+            })
         });
     }
 
@@ -86,16 +92,31 @@ class Login extends Component<LoginProperties> {
         return Handlebars.compile(template)(this.properties);
     }
 
-    onComponentDidRender() {
-        const cardBody = this.element.querySelector('.card__body');
-        if (cardBody) {
-            cardBody.appendChild(this.properties.form.element);
-        }
+    onComponentDidRender(): void {
+        const { header, form, needAccount } = this.properties;
+        new QuerySelectAppender(this.element)
+            .queryAndAppend('.card__header', header.element)
+            .queryAndAppend('.card__body', form.element)
+            .queryAndAppend('.card__footer', needAccount.element);
     }
 
     private get valid(): boolean {
         return this.properties.form.valid;
     }
-}
 
-renderer2(new Login().element);
+    private signIn(): void {
+        if (this.valid) {
+            this.controller
+                .signIn(this.properties.form.value as SignInRequest)
+                .then((ok) => {
+                    if (ok) {
+                        AppRouter.go(Routes.MESSENGER);
+                    }
+                })
+                .catch((error) => {
+                    // todo [sitnik] notification
+                    void error;
+                });
+        }
+    }
+}
