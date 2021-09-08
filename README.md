@@ -33,6 +33,10 @@ PR's are accepted to `main` branch only
 
 https://elated-davinci-b5b9aa.netlify.app/
 
+## Heroku
+
+https://elated-davinci-b5b9aa.herokuapp.com/
+
 ## Dev
 
 Typescript types checking - `npm run tsc` <br>
